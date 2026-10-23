@@ -284,7 +284,7 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
   <button class="nav-item" data-nav="reports" onclick="nav('reports')"><span class="ico">📊</span> گزارش‌ها</button>
   <button class="nav-item" data-nav="settings" onclick="nav('settings')"><span class="ico">⚙️</span> تنظیمات</button>
   <div class="divider"></div>
-  <div class="hint">نسخه ۱.۲ • داده‌ها روی همین دستگاه ذخیره می‌شود</div>
+  <div class="hint">نسخه ۱.۳ • داده‌ها روی همین دستگاه ذخیره می‌شود</div>
 </nav>
 
 <main id="mainApp">
@@ -414,6 +414,11 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
       <div class="card-title">🏢 اطلاعات ساختمان</div>
       <div class="field"><label>نام ساختمان</label><input class="input" id="setName" onchange="saveSetting('name',this.value)"></div>
       <div class="field"><label>شماره کارت مدیر (برای پرداخت ساکنین)</label><input class="input" id="setCard" dir="ltr" style="text-align:left" onchange="saveSetting('card',this.value)"></div>
+      <div class="field">
+        <label>موجودی اولیه صندوق (تومان)</label>
+        <input class="input" id="setInitialFund" type="number" placeholder="۰" onchange="saveInitialFund(this.value)">
+        <div class="hint">اگه ساختمان از قبل موجودی داشته، اینجا وارد کن. این مبلغ به موجودی فعلی اضافه می‌شه.</div>
+      </div>
       <div class="field"><label>لوگو (اختیاری)</label><input class="input" type="file" accept="image/*" onchange="uploadLogo(event)"></div>
       <div id="logoPreview" style="display:none;margin-top:8px">
         <img id="logoImg" style="width:60px;height:60px;border-radius:12px;object-fit:cover">
@@ -456,7 +461,7 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 <script>
 let DB = {
   units: [], bills: [], payments: [],
-  settings: { name: 'ساختمان من', card: '', theme: 'light', logo: '' }
+  settings: { name: 'ساختمان من', card: '', theme: 'light', logo: '', initialFund: 0 }
 };
 let currentSection = 'dashboard';
 let isResidentView = false;
@@ -529,6 +534,7 @@ function loadDB(){
       DB.bills = p.bills || [];
       DB.payments = p.payments || [];
       DB.settings = Object.assign(DB.settings, p.settings || {});
+      if(DB.settings.initialFund === undefined) DB.settings.initialFund = 0;
     }
   }catch(e){ console.warn('loadDB', e); }
   applySettings();
@@ -544,6 +550,7 @@ function applySettings(){
   document.getElementById('buildingSub').textContent = DB.units.length ? faNum(DB.units.length) + ' واحد' : 'مدیریت هزینه‌ها';
   document.getElementById('setName').value = DB.settings.name || '';
   document.getElementById('setCard').value = DB.settings.card || '';
+  document.getElementById('setInitialFund').value = DB.settings.initialFund || 0;
   document.querySelectorAll('.theme-opt').forEach(b=>{ b.classList.toggle('active', b.dataset.t === DB.settings.theme); });
   const brand = document.getElementById('brandLogo');
   if(DB.settings.logo){
@@ -554,6 +561,12 @@ function applySettings(){
     brand.innerHTML = '🏢';
     document.getElementById('logoPreview').style.display = 'none';
   }
+}
+function saveInitialFund(value){
+  const n = Number(value) || 0;
+  DB.settings.initialFund = n;
+  saveDB(); applySettings(); renderDashboard();
+  toast('موجودی اولیه ذخیره شد');
 }
 
 /* ---------- NAV + HISTORY ---------- */
@@ -590,12 +603,10 @@ window.addEventListener('popstate', function(e){
   } else if(state && state.type === 'resident' && state.unitId){
     showResident(state.unitId);
   } else {
-    // برگشت به داشبورد
     if(currentSection !== 'dashboard'){
       showSection('dashboard');
       history.replaceState({ type: 'section', section: 'dashboard' }, '', location.pathname + location.search);
     }
-    // اگه توی داشبورد بودیم، بذار مرورگر ببنده
   }
 });
 
@@ -762,9 +773,10 @@ function unitDebt(unitId){
 }
 function totalDebt(){ return DB.units.reduce((s,u) => s + Math.max(0, unitDebt(u.id)), 0); }
 function fundBalance(){
+  const initial = Number(DB.settings.initialFund) || 0;
   const paid = DB.payments.reduce((s,p)=>s+p.amount, 0);
   const fromFund = DB.bills.filter(b=>b.source==='fund').reduce((s,b)=>s+b.amount, 0);
-  return paid - fromFund;
+  return initial + paid - fromFund;
 }
 function totalBills(){ return DB.bills.reduce((s,b)=>s+b.amount, 0); }
 
@@ -947,10 +959,7 @@ function showResident(unitId){
     '</div>';
   document.body.appendChild(wrap);
 }
-function closeResident(){
-  // از history برمی‌گردیم عقب (به state قبلی)
-  history.back();
-}
+function closeResident(){ history.back(); }
 function exitResidentView(){
   const old = document.getElementById('residentView'); if(old) old.remove();
   document.getElementById('mainApp').style.display = 'block';
@@ -1007,6 +1016,7 @@ function importData(e){
       DB.bills = d.bills || [];
       DB.payments = d.payments || [];
       DB.settings = Object.assign(DB.settings, d.settings || {});
+      if(DB.settings.initialFund === undefined) DB.settings.initialFund = 0;
       saveDB(); renderAll(); toast('داده‌ها وارد شد');
     }catch(err){ toast('فایل معتبر نیست'); }
   };
@@ -1014,7 +1024,7 @@ function importData(e){
   e.target.value = '';
 }
 function clearAll(){
-  DB = { units:[], bills:[], payments:[], settings: Object.assign({}, DB.settings) };
+  DB = { units:[], bills:[], payments:[], settings: Object.assign({}, DB.settings, { initialFund: 0 }) };
   saveDB(); renderAll(); toast('همه داده‌ها پاک شد');
 }
 
@@ -1068,9 +1078,10 @@ async function exportPDF(){
   }
   if(type === 'fund' || type === 'full'){
     line('— گردش صندوق —', 13, true, '#2563eb');
-    line('موجودی فعلی: ' + fmt(fundBalance()) + ' تومان', 11, true, '#2563eb');
+    line('موجودی اولیه: ' + fmt(DB.settings.initialFund || 0) + ' تومان', 10, false, '#64748b');
     line('جمع پرداخت‌های واحدها: ' + fmt(DB.payments.reduce((s,p)=>s+p.amount,0)) + ' تومان', 10);
     line('جمع قبض‌های پرداخت‌شده از صندوق: ' + fmt(DB.bills.filter(b=>b.source==='fund').reduce((s,b)=>s+b.amount,0)) + ' تومان', 10);
+    line('موجودی فعلی: ' + fmt(fundBalance()) + ' تومان', 11, true, '#2563eb');
     y += 3;
   }
   if(type === 'bills' || type === 'full'){
@@ -1089,11 +1100,10 @@ async function exportPDF(){
   toast('PDF دانلود شد');
 }
 
-/* ---------- ROUTE (لینک مستقیم ساکن) ---------- */
+/* ---------- ROUTE ---------- */
 function handleInitialRoute(){
   const m = (location.hash || '').match(/^#\/r\/(.+)$/);
   if(m){
-    // کاربر ساکن است — pushState تا بتونه با back از اپ خارج بشه
     history.replaceState({ type: 'resident', unitId: m[1] }, '', location.hash);
     showResident(m[1]);
   } else {
