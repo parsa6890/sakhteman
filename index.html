@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#3b82f6">
+<title>هزینه‌ساز</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+
+<style>
+:root{
+  --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --muted:#64748b;
+  --border:#e2e8f0; --primary:#3b82f6; --primary-soft:#dbeafe;
+  --success:#16a34a; --danger:#dc2626; --warning:#f59e0b;
+  --shadow:0 4px 20px rgba(0,0,0,.06); --radius:16px;
+}
+[data-theme="dark"]{
+  --bg:#0f172a; --card:#1e293b; --text:#f1f5f9; --muted:#94a3b8;
+  --border:#334155; --primary:#60a5fa; --primary-soft:#1e3a8a;
+  --success:#4ade80; --danger:#f87171; --warning:#fbbf24;
+  --shadow:0 4px 20px rgba(0,0,0,.4);
+}
+[data-theme="redlight"]{
+  --bg:#fef2f2; --card:#ffffff; --text:#450a0a; --muted:#991b1b;
+  --border:#fecaca; --primary:#ef4444; --primary-soft:#fee2e2;
+  --success:#16a34a; --danger:#b91c1c; --warning:#f59e0b;
+  --shadow:0 4px 20px rgba(220,38,38,.08);
+}
+[data-theme="bluelight"]{
+  --bg:#eff6ff; --card:#ffffff; --text:#0c1e3e; --muted:#1e40af;
+  --border:#bfdbfe; --primary:#2563eb; --primary-soft:#dbeafe;
+  --success:#16a34a; --danger:#dc2626; --warning:#f59e0b;
+  --shadow:0 4px 20px rgba(37,99,235,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:'Vazirmatn FD','Vazirmatn',sans-serif;
+  background:var(--bg); color:var(--text);
+  transition:background .3s,color .3s;
+  padding-top:env(safe-area-inset-top);
+  padding-bottom:env(safe-area-inset-bottom);
+  overflow-x:hidden;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:1rem}
+
+/* Header */
+header{
+  position:sticky;top:0;z-index:50;
+  background:var(--card); border-bottom:1px solid var(--border);
+  padding:12px 16px; display:flex;align-items:center;gap:12px;
+}
+.brand{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.brand-logo{
+  width:42px;height:42px;border-radius:12px;overflow:hidden;
+  background:linear-gradient(135deg,var(--primary),var(--primary-soft));
+  display:grid;place-items:center;font-size:22px;flex-shrink:0;
+}
+.brand-logo img{width:100%;height:100%;object-fit:cover}
+.brand-text{min-width:0}
+.brand-title{font-weight:700;font-size:1.05rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-sub{font-size:.72rem;color:var(--muted)}
+.hamburger{
+  width:44px;height:44px;border-radius:12px;
+  display:grid;place-items:center;background:var(--primary-soft);
+  color:var(--primary);font-size:22px;flex-shrink:0;transition:transform .2s;
+}
+.hamburger:active{transform:scale(.92)}
+
+/* Drawer */
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.overlay.open{opacity:1;pointer-events:auto}
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;width:280px;max-width:82vw;
+  background:var(--card);z-index:100;padding:20px 16px;
+  transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;gap:4px;overflow-y:auto;
+  box-shadow:-8px 0 30px rgba(0,0,0,.15);
+}
+.drawer.open{transform:translateX(0)}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.drawer-title{font-weight:700;font-size:1.1rem}
+.drawer-close{width:36px;height:36px;border-radius:10px;background:var(--bg);display:grid;place-items:center;font-size:18px}
+.nav-item{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;
+  border-radius:12px;font-weight:500;font-size:.95rem;
+  transition:background .15s;text-align:right;width:100%;
+}
+.nav-item:hover,.nav-item.active{background:var(--primary-soft);color:var(--primary)}
+.nav-item .ico{font-size:1.2rem;width:24px;text-align:center}
+
+/* Main */
+main{max-width:720px;margin:0 auto;padding:16px;padding-bottom:100px}
+.section{display:none}
+.section.active{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.card{
+  background:var(--card);border-radius:var(--radius);
+  padding:18px;box-shadow:var(--shadow);border:1px solid var(--border);
+  margin-bottom:16px;
+}
+.card-title{font-weight:700;font-size:1.05rem;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+
+/* Forms */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.85rem;font-weight:600;color:var(--muted);margin-bottom:6px}
+.input{
+  width:100%;padding:12px 14px;border-radius:12px;
+  border:1.5px solid var(--border);background:var(--bg);color:var(--text);
+  font-size:1rem;transition:border .15s,box-shadow .15s;
+}
+.input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 14px center;padding-left:38px}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:12px 18px;border-radius:12px;font-weight:600;font-size:.95rem;
+  transition:transform .1s,opacity .15s;white-space:nowrap;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-soft{background:var(--primary-soft);color:var(--primary)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-ghost{background:var(--bg);color:var(--text);border:1.5px solid var(--border)}
+.btn-block{width:100%}
+.btn-sm{padding:8px 12px;font-size:.85rem;border-radius:10px}
+.btn-wa{background:#25D366;color:#fff}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px}
+.stat{
+  background:var(--card);border-radius:var(--radius);padding:16px;
+  border:1px solid var(--border);box-shadow:var(--shadow);
+}
+.stat-label{font-size:.8rem;color:var(--muted);margin-bottom:6px}
+.stat-value{font-size:1.35rem;font-weight:800;letter-spacing:-.5px}
+.stat-value.green{color:var(--success)}
+.stat-value.red{color:var(--danger)}
+.stat-value.blue{color:var(--primary)}
+
+/* Lists */
+.item{
+  display:flex;align-items:center;gap:12px;padding:12px 14px;
+  background:var(--bg);border:1px solid var(--border);border-radius:14px;
+  margin-bottom:10px;transition:border .15s;
+}
+.item:hover{border-color:var(--primary)}
+.item-main{flex:1;min-width:0}
+.item-title{font-weight:600;font-size:.95rem;margin-bottom:3px}
+.item-sub{font-size:.78rem;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
+.badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 9px;border-radius:20px;font-size:.72rem;font-weight:600;
+}
+.badge-green{background:rgba(22,163,74,.12);color:var(--success)}
+.badge-red{background:rgba(220,38,38,.12);color:var(--danger)}
+.badge-blue{background:var(--primary-soft);color:var(--primary)}
+.badge-gray{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+
+/* Unit grid */
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px}
+.unit-chip{
+  padding:10px 8px;border-radius:12px;text-align:center;
+  background:var(--bg);border:1.5px solid var(--border);
+  font-weight:600;font-size:.85rem;transition:all .15s;
+}
+.unit-chip.paid{background:rgba(22,163,74,.12);border-color:var(--success);color:var(--success)}
+.unit-chip.debt{background:rgba(220,38,38,.1);border-color:var(--danger);color:var(--danger)}
+.unit-chip .cnt{font-size:.7rem;color:var(--muted);font-weight:400;display:block;margin-top:2px}
+
+/* Modal */
+.modal{
+  position:fixed;inset:0;z-index:200;display:none;
+  align-items:flex-end;justify-content:center;background:rgba(0,0,0,.5);
+}
+.modal.open{display:flex}
+.modal-box{
+  background:var(--card);width:100%;max-width:560px;max-height:90vh;
+  border-radius:20px 20px 0 0;padding:20px;overflow-y:auto;
+  animation:slideUp .3s cubic-bezier(.4,0,.2,1);
+}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:none}}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.modal-title{font-weight:700;font-size:1.1rem}
+.modal-close{width:36px;height:36px;border-radius:10px;background:var(--bg);display:grid;place-items:center;font-size:18px}
+
+/* Misc */
+.empty{text-align:center;padding:40px 20px;color:var(--muted)}
+.empty .ico{font-size:3rem;margin-bottom:10px;opacity:.5}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+.hint{font-size:.78rem;color:var(--muted);line-height:1.6;margin-top:6px}
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120%);
+  background:var(--text);color:var(--bg);padding:12px 22px;border-radius:30px;
+  font-size:.88rem;font-weight:600;z-index:300;transition:transform .3s;
+  box-shadow:0 8px 30px rgba(0,0,0,.3);max-width:90vw;text-align:center;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.divider{height:1px;background:var(--border);margin:16px 0}
+.theme-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.theme-opt{
+  aspect-ratio:1;border-radius:14px;border:2px solid var(--border);
+  display:grid;place-items:center;font-size:.72rem;font-weight:600;
+  transition:all .15s;
+}
+.theme-opt.active{border-color:var(--primary);transform:scale(1.05)}
+.theme-opt[data-t="light"]{background:#f8fafc;color:#0f172a}
+.theme-opt[data-t="dark"]{background:#0f172a;color:#f1f5f9}
+.theme-opt[data-t="redlight"]{background:#fef2f2;color:#991b1b}
+.theme-opt[data-t="bluelight"]{background:#eff6ff;color:#1e40af}
+
+/* Resident view */
+.resident-wrap{max-width:480px;margin:0 auto;padding:24px 16px;min-height:100vh}
+.resident-card{
+  background:var(--card);border-radius:20px;padding:24px;
+  box-shadow:var(--shadow);border:1px solid var(--border);text-align:center;
+}
+.resident-logo{width:60px;height:60px;border-radius:16px;margin:0 auto 14px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-soft));
+  display:grid;place-items:center;font-size:30px;overflow:hidden}
+.resident-logo img{width:100%;height:100%;object-fit:cover}
+.resident-big{font-size:2rem;font-weight:800;margin:8px 0;letter-spacing:-1px}
+.card-num{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--bg);padding:14px;border-radius:14px;border:1.5px dashed var(--border);
+  margin-top:14px;
+}
+.card-num .num{font-family:monospace;font-size:1.15rem;font-weight:700;letter-spacing:1px;direction:ltr}
+.copy-btn{width:40px;height:40px;border-radius:10px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:16px}
+
+/* FAB */
+.fab{
+  position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:18px;
+  background:var(--primary);color:#fff;display:grid;place-items:center;
+  font-size:28px;box-shadow:0 8px 24px rgba(59,130,246,.4);z-index:40;
+  transition:transform .15s;
+}
+.fab:active{transform:scale(.9)}
+
+/* Manual split rows */
+.manual-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.manual-row .lbl{font-size:.85rem;font-weight:600;min-width:70px}
+.manual-row input{flex:1}
+
+/* Jalali date row */
+.date-row{display:flex;gap:8px}
+.date-row select{flex:1}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="appHeader">
+  <div class="brand">
+    <div class="brand-logo" id="brandLogo">🏢</div>
+    <div class="brand-text">
+      <div class="brand-title" id="buildingName">ساختمان من</div>
+      <div class="brand-sub" id="buildingSub">مدیریت هزینه‌ها</div>
+    </div>
+  </div>
+  <button class="hamburger" onclick="openDrawer()">☰</button>
+</header>
+
+<!-- DRAWER -->
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<nav class="drawer" id="drawer">
+  <div class="drawer-header">
+    <span class="drawer-title">منو</span>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <button class="nav-item active" data-nav="dashboard" onclick="nav('dashboard')"><span class="ico">🏠</span> داشبورد</button>
+  <button class="nav-item" data-nav="units" onclick="nav('units')"><span class="ico">🏢</span> واحدها</button>
+  <button class="nav-item" data-nav="bills" onclick="nav('bills')"><span class="ico">📄</span> قبض‌ها</button>
+  <button class="nav-item" data-nav="payments" onclick="nav('payments')"><span class="ico">💰</span> پرداخت‌ها</button>
+  <button class="nav-item" data-nav="reminders" onclick="nav('reminders')"><span class="ico">🔔</span> یادآوری‌ها</button>
+  <button class="nav-item" data-nav="reports" onclick="nav('reports')"><span class="ico">📊</span> گزارش‌ها</button>
+  <button class="nav-item" data-nav="settings" onclick="nav('settings')"><span class="ico">⚙️</span> تنظیمات</button>
+  <div class="divider"></div>
+  <div class="hint">نسخه ۱.۱ • داده‌ها روی همین دستگاه ذخیره می‌شود</div>
+</nav>
+
+<!-- MAIN -->
+<main id="mainApp">
+
+  <!-- Dashboard -->
+  <section class="section active" id="sec-dashboard">
+    <div class="stats">
+      <div class="stat"><div class="stat-label">موجودی صندوق</div><div class="stat-value blue" id="stFund">۰</div></div>
+      <div class="stat"><div class="stat-label">کل بدهی واحدها</div><div class="stat-value red" id="stDebt">۰</div></div>
+      <div class="stat"><div class="stat-label">تعداد واحدها</div><div class="stat-value" id="stUnits">۰</div></div>
+      <div class="stat"><div class="stat-label">کل قبض‌ها</div><div class="stat-value" id="stBills">۰</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📌 وضعیت واحدها</div>
+      <div class="unit-grid" id="unitOverview"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🕐 آخرین قبض‌ها</div>
+      <div id="recentBills"></div>
+    </div>
+  </section>
+
+  <!-- Units -->
+  <section class="section" id="sec-units">
+    <div class="card">
+      <div class="card-title">➕ افزودن واحد</div>
+      <div class="row">
+        <div class="field"><label>شماره واحد</label><input class="input" id="uNum" placeholder="مثلاً ۱"></div>
+        <div class="field"><label>تعداد نفرات</label><input class="input" id="uPeople" type="number" min="1" value="1"></div>
+      </div>
+      <div class="field"><label>شماره تلفن (برای واتساپ — اختیاری)</label><input class="input" id="uPhone" dir="ltr" style="text-align:left" placeholder="09123456789"></div>
+      <button class="btn btn-primary btn-block" onclick="addUnit()">افزودن</button>
+    </div>
+    <div class="card">
+      <div class="card-title">📋 لیست واحدها</div>
+      <div id="unitsList"></div>
+    </div>
+  </section>
+
+  <!-- Bills -->
+  <section class="section" id="sec-bills">
+    <div class="card">
+      <div class="card-title">➕ ثبت قبض جدید</div>
+      <div class="field"><label>عنوان قبض</label><input class="input" id="bTitle" placeholder="مثلاً شارژ آبان"></div>
+      <div class="field"><label>مبلغ کل (تومان)</label><input class="input" id="bAmount" type="number" placeholder="مثلاً 1200000"></div>
+      <div class="field">
+        <label>روش تقسیم</label>
+        <select class="input" id="bSplit" onchange="toggleManual()">
+          <option value="per_unit">مساوی بین واحدها</option>
+          <option value="per_person">بر اساس تعداد نفرات</option>
+          <option value="manual">دستی (سهم هر واحد)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>محل پرداخت</label>
+        <select class="input" id="bSource">
+          <option value="units">از واحدها (به بدهی واحدها اضافه می‌شود)</option>
+          <option value="fund">از صندوق ساختمان</option>
+        </select>
+      </div>
+      <div id="manualBox" style="display:none"></div>
+      <button class="btn btn-primary btn-block" onclick="addBill()">ثبت قبض</button>
+    </div>
+    <div class="card">
+      <div class="card-title">📄 لیست قبض‌ها</div>
+      <div id="billsList"></div>
+    </div>
+  </section>
+
+  <!-- Payments -->
+  <section class="section" id="sec-payments">
+    <div class="card">
+      <div class="card-title">💰 ثبت پرداخت</div>
+      <div class="field"><label>واحد</label><select class="input" id="pUnit"></select></div>
+      <div class="field"><label>مبلغ پرداختی (تومان)</label><input class="input" id="pAmount" type="number"></div>
+      <div class="field">
+        <label>تاریخ پرداخت (شمسی)</label>
+        <div class="date-row">
+          <select class="input" id="pYear"></select>
+          <select class="input" id="pMonth"></select>
+          <select class="input" id="pDay"></select>
+        </div>
+      </div>
+      <div class="field"><label>توضیح (اختیاری)</label><input class="input" id="pNote"></div>
+      <button class="btn btn-primary btn-block" onclick="addPayment()">ثبت پرداخت</button>
+    </div>
+    <div class="card">
+      <div class="card-title">🧾 تاریخچه پرداخت‌ها</div>
+      <div id="paymentsList"></div>
+    </div>
+  </section>
+
+  <!-- Reminders -->
+  <section class="section" id="sec-reminders">
+    <div class="card">
+      <div class="card-title">🔔 یادآوری بدهی</div>
+      <div class="hint" style="margin-bottom:14px">
+        یادآوری از طریق واتساپ با یک کلیک ارسال می‌شود. (اتصال به اینترنت و نصب واتساپ لازم است)
+      </div>
+      <div id="remindersList"></div>
+    </div>
+  </section>
+
+  <!-- Reports -->
+  <section class="section" id="sec-reports">
+    <div class="card">
+      <div class="card-title">📊 گزارش‌گیری PDF</div>
+      <div class="field">
+        <label>نوع گزارش</label>
+        <select class="input" id="rType">
+          <option value="debtors">لیست بدهکاران</option>
+          <option value="fund">گردش صندوق</option>
+          <option value="bills">ریز قبض‌ها</option>
+          <option value="full">گزارش کامل</option>
+        </select>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="exportPDF()">📥 دانلود PDF</button>
+      <div class="hint">گزارش‌ها راست‌چین و با فونت فارسی تولید می‌شوند.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔗 لینک‌های ساکنین</div>
+      <div class="hint" style="margin-bottom:12px">لینک هر واحد را کپی کنید و به ساکن بدهید. ساکن فقط بدهی خودش را می‌بیند.</div>
+      <div id="residentLinks"></div>
+    </div>
+  </section>
+
+  <!-- Settings -->
+  <section class="section" id="sec-settings">
+    <div class="card">
+      <div class="card-title">🏢 اطلاعات ساختمان</div>
+      <div class="field"><label>نام ساختمان</label><input class="input" id="setName" onchange="saveSetting('name',this.value)"></div>
+      <div class="field"><label>شماره کارت مدیر (برای پرداخت ساکنین)</label><input class="input" id="setCard" dir="ltr" style="text-align:left" onchange="saveSetting('card',this.value)"></div>
+      <div class="field"><label>لوگو (اختیاری — برای هدر و PDF)</label><input class="input" type="file" accept="image/*" onchange="uploadLogo(event)"></div>
+      <div id="logoPreview" style="display:none;margin-top:8px">
+        <img id="logoImg" style="width:60px;height:60px;border-radius:12px;object-fit:cover">
+        <button class="btn btn-sm btn-danger" style="margin-top:8px" onclick="removeLogo()">حذف لوگو</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🎨 تم</div>
+      <div class="theme-grid">
+        <button class="theme-opt" data-t="light" onclick="setTheme('light')">روشن</button>
+        <button class="theme-opt" data-t="dark" onclick="setTheme('dark')">تیره</button>
+        <button class="theme-opt" data-t="redlight" onclick="setTheme('redlight')">قرمز</button>
+        <button class="theme-opt" data-t="bluelight" onclick="setTheme('bluelight')">آبی</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">💾 داده‌ها</div>
+      <button class="btn btn-ghost btn-block" onclick="exportData()">📤 خروجی JSON</button>
+      <div style="height:10px"></div>
+      <button class="btn btn-ghost btn-block" onclick="document.getElementById('importFile').click()">📥 ورود JSON</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+      <div class="divider"></div>
+      <button class="btn btn-danger btn-block" onclick="if(confirm('همه داده‌ها حذف شود؟')) clearAll()">🗑️ پاک کردن همه داده‌ها</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- FAB -->
+<button class="fab" id="fab" onclick="nav('bills')">＋</button>
+
+<!-- Modal -->
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+
+<script>
+/* =========================================================
+   STATE
+========================================================= */
+let DB = {
+  units: [],
+  bills: [],
+  payments: [],
+  settings: { name: 'ساختمان من', card: '', theme: 'light', logo: '' }
+};
+
+/* =========================================================
+   HELPERS
+========================================================= */
+const fmt = n => (Number(n)||0).toLocaleString('fa-IR');
+const faNum = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+
+const toast = (msg) => {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(()=>t.classList.remove('show'), 2200);
+};
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+const findUnit = id => DB.units.find(u => u.id === id);
+
+/* ---------- تاریخ شمسی ---------- */
+const JALALI_MONTHS = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+
+function gregorianToJalali(gy, gm, gd){
+  const g_d_m = [0,31,59,90,120,151,181,212,243,273,304,334];
+  let jy = (gy <= 1600) ? 0 : 979;
+  gy -= (gy <= 1600) ? 621 : 1600;
+  const gy2 = (gm > 2) ? (gy + 1) : gy;
+  let days = (365 * gy) + Math.floor((gy2 + 3) / 4) - Math.floor((gy2 + 99) / 100)
+             + Math.floor((gy2 + 399) / 400) - 80 + gd + g_d_m[gm - 1];
+  jy += 33 * Math.floor(days / 12053);
+  days %= 12053;
+  jy += 4 * Math.floor(days / 1461);
+  days %= 1461;
+  if(days > 365){
+    jy += Math.floor((days - 1) / 365);
+    days = (days - 1) % 365;
+  }
+  const jm = (days < 186) ? 1 + Math.floor(days / 31) : 7 + Math.floor((days - 186) / 30);
+  const jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30));
+  return { jy, jm, jd };
+}
+function jalaliToGregorian(jy, jm, jd){
+  let gy = (jy <= 979) ? 621 : 1600;
+  jy -= (jy <= 979) ? 0 : 979;
+  let days = (365 * jy) + (Math.floor(jy / 33) * 8) + Math.floor(((jy % 33) + 3) / 4)
+             + 78 + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
+  gy += 400 * Math.floor(days / 146097);
+  days %= 146097;
+  if(days > 36524){
+    gy += 100 * Math.floor(--days / 36524);
+    days %= 36524;
+    if(days >= 365) days++;
+  }
+  gy += 4 * Math.floor(days / 1461);
+  days %= 1461;
+  if(days > 365){
+    gy += Math.floor((days - 1) / 365);
+    days = (days - 1) % 365;
+  }
+  let gd = days + 1;
+  const sal_a = [0,31,((gy%4===0 && gy%100!==0)||(gy%400===0))?29:28,31,30,31,30,31,31,30,31,30,31];
+  let gm = 0;
+  for(gm = 1; gm <= 12; gm++){
+    if(gd <= sal_a[gm]) break;
+    gd -= sal_a[gm];
+  }
+  return { gy, gm, gd };
+}
+function todayJalali(){
+  const now = new Date();
+  return gregorianToJalali(now.getFullYear(), now.getMonth() + 1, now.getDate());
+}
+function jalaliMonthLength(jy, jm){
+  if(jm <= 6) return 31;
+  if(jm <= 11) return 30;
+  // اسفند: ۲۹ یا ۳۰
+  const { gy, gm, gd } = jalaliToGregorian(jy, 12, 1);
+  const next = new Date(gy, gm - 1, gd + 1);
+  const nextJ = gregorianToJalali(next.getFullYear(), next.getMonth() + 1, next.getDate());
+  return (nextJ.jm === 1) ? 30 : 29;
+}
+function formatJalali(jy, jm, jd){
+  return faNum(jy) + '/' + faNum(String(jm).padStart(2,'0')) + '/' + faNum(String(jd).padStart(2,'0'));
+}
+
+/* =========================================================
+   STORAGE
+========================================================= */
+function loadDB(){
+  try{
+    const raw = localStorage.getItem('sakhteman_db');
+    if(raw){
+      const p = JSON.parse(raw);
+      DB.units = p.units || [];
+      DB.bills = p.bills || [];
+      DB.payments = p.payments || [];
+      DB.settings = Object.assign(DB.settings, p.settings || {});
+    }
+  }catch(e){ console.warn('loadDB error', e); }
+  applySettings();
+  renderAll();
+}
+function saveDB(){
+  try{ localStorage.setItem('sakhteman_db', JSON.stringify(DB)); }
+  catch(e){ toast('خطا در ذخیره‌سازی'); console.warn(e); }
+}
+function applySettings(){
+  document.documentElement.setAttribute('data-theme', DB.settings.theme || 'light');
+  document.getElementById('buildingName').textContent = DB.settings.name || 'ساختمان من';
+  document.getElementById('buildingSub').textContent = DB.units.length
+    ? faNum(DB.units.length) + ' واحد' : 'مدیریت هزینه‌ها';
+  document.getElementById('setName').value = DB.settings.name || '';
+  document.getElementById('setCard').value = DB.settings.card || '';
+  document.querySelectorAll('.theme-opt').forEach(b=>{
+    b.classList.toggle('active', b.dataset.t === DB.settings.theme);
+  });
+  const brand = document.getElementById('brandLogo');
+  if(DB.settings.logo){
+    brand.innerHTML = '<img src="' + DB.settings.logo + '" alt="logo">';
+    document.getElementById('logoPreview').style.display = 'block';
+    document.getElementById('logoImg').src = DB.settings.logo;
+  } else {
+    brand.innerHTML = '🏢';
+    document.getElementById('logoPreview').style.display = 'none';
+  }
+}
+
+/* =========================================================
+   NAV / MODAL
+========================================================= */
+function openDrawer(){
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+function nav(id){
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const sec = document.getElementById('sec-' + id);
+  if(sec) sec.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.nav === id);
+  });
+  document.getElementById('fab').style.display = (id === 'bills' || id === 'dashboard') ? 'grid' : 'none';
+  closeDrawer();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function openModal(title, html){
+  document.getElementById('modalBox').innerHTML =
+    '<div class="modal-header"><span class="modal-title">' + title + '</span>' +
+    '<button class="modal-close" onclick="closeModal()">✕</button></div>' + html;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('modalBox').innerHTML = '';
+}
+
+/* =========================================================
+   UNITS
+========================================================= */
+function normalizePhone(p){
+  if(!p) return '';
+  let s = String(p).replace(/[^\d+]/g, '');
+  if(s.startsWith('+')) s = s.slice(1);
+  if(s.startsWith('00')) s = s.slice(2);
+  if(s.startsWith('0')) s = '98' + s.slice(1);
+  else if(!s.startsWith('98')) s = '98' + s;
+  return s;
+}
+function addUnit(){
+  const num = document.getElementById('uNum').value.trim();
+  const people = parseInt(document.getElementById('uPeople').value, 10);
+  const phone = document.getElementById('uPhone').value.trim();
+  if(!num) return toast('شماره واحد را وارد کنید');
+  if(!people || people < 1) return toast('تعداد نفرات معتبر نیست');
+  if(DB.units.some(u => u.num === num)) return toast('این شماره واحد قبلاً ثبت شده');
+
+  DB.units.push({ id: uid(), num, people, phone: phone || '', createdAt: Date.now() });
+  document.getElementById('uNum').value = '';
+  document.getElementById('uPeople').value = '1';
+  document.getElementById('uPhone').value = '';
+  saveDB(); renderAll();
+  toast('واحد اضافه شد');
+}
+function editUnit(id){
+  const u = findUnit(id);
+  if(!u) return;
+  openModal('ویرایش واحد ' + u.num,
+    '<div class="field"><label>شماره واحد</label><input class="input" id="euNum" value="' + u.num + '"></div>' +
+    '<div class="field"><label>تعداد نفرات</label><input class="input" id="euPeople" type="number" min="1" value="' + u.people + '"></div>' +
+    '<div class="field"><label>شماره تلفن</label><input class="input" id="euPhone" dir="ltr" style="text-align:left" value="' + (u.phone||'') + '" placeholder="09123456789"></div>' +
+    '<button class="btn btn-primary btn-block" onclick="saveEditUnit(\'' + id + '\')">ذخیره</button>'
+  );
+}
+function saveEditUnit(id){
+  const u = findUnit(id);
+  if(!u) return;
+  const num = document.getElementById('euNum').value.trim();
+  const people = parseInt(document.getElementById('euPeople').value, 10);
+  const phone = document.getElementById('euPhone').value.trim();
+  if(!num || !people || people < 1) return toast('اطلاعات معتبر نیست');
+  if(DB.units.some(x => x.num === num && x.id !== id)) return toast('این شماره تکراری است');
+  u.num = num; u.people = people; u.phone = phone || '';
+  saveDB(); renderAll(); closeModal();
+  toast('ذخیره شد');
+}
+function deleteUnit(id){
+  if(!confirm('این واحد حذف شود؟')) return;
+  DB.units = DB.units.filter(u => u.id !== id);
+  DB.payments = DB.payments.filter(p => p.unitId !== id);
+  DB.bills.forEach(b => { delete b.shares[id]; delete b.paidBy[id]; });
+  saveDB(); renderAll();
+  toast('حذف شد');
+}
+
+/* =========================================================
+   BILLS
+========================================================= */
+function toggleManual(){
+  const mode = document.getElementById('bSplit').value;
+  const box = document.getElementById('manualBox');
+  if(mode !== 'manual'){ box.style.display = 'none'; box.innerHTML = ''; return; }
+  if(DB.units.length === 0){
+    box.innerHTML = '<div class="hint">ابتدا واحد اضافه کنید.</div>';
+    box.style.display = 'block';
+    return;
+  }
+  box.innerHTML = DB.units.map(u =>
+    '<div class="manual-row"><span class="lbl">واحد ' + u.num + '</span>' +
+    '<input class="input" type="number" id="man-' + u.id + '" placeholder="مبلغ" value="0"></div>'
+  ).join('');
+  box.style.display = 'block';
+}
+function addBill(){
+  const title = document.getElementById('bTitle').value.trim();
+  const amount = parseFloat(document.getElementById('bAmount').value);
+  const split = document.getElementById('bSplit').value;
+  const source = document.getElementById('bSource').value;
+
+  if(!title) return toast('عنوان قبض را وارد کنید');
+  if(!amount || amount <= 0) return toast('مبلغ معتبر نیست');
+  if(DB.units.length === 0) return toast('ابتدا واحد اضافه کنید');
+
+  let shares = {};
+  if(split === 'manual'){
+    let sum = 0;
+    DB.units.forEach(u => {
+      const el = document.getElementById('man-' + u.id);
+      const v = el ? (parseFloat(el.value) || 0) : 0;
+      shares[u.id] = v; sum += v;
+    });
+    if(Math.abs(sum - amount) > 1){
+      return toast('مجموع سهم‌ها با مبلغ کل برابر نیست (' + fmt(sum) + ' از ' + fmt(amount) + ')');
+    }
+  } else if(split === 'per_unit'){
+    const per = Math.floor(amount / DB.units.length);
+    DB.units.forEach(u => shares[u.id] = per);
+  } else {
+    const totalPeople = DB.units.reduce((s,u)=>s+u.people, 0) || 1;
+    DB.units.forEach(u => shares[u.id] = Math.round(amount * u.people / totalPeople));
+  }
+
+  DB.bills.push({ id: uid(), title, amount, split, source, shares, paidBy: {}, createdAt: Date.now() });
+
+  document.getElementById('bTitle').value = '';
+  document.getElementById('bAmount').value = '';
+  document.getElementById('manualBox').innerHTML = '';
+  document.getElementById('manualBox').style.display = 'none';
+
+  saveDB(); renderAll();
+  toast('قبض ثبت شد');
+}
+function deleteBill(id){
+  if(!confirm('این قبض حذف شود؟')) return;
+  DB.bills = DB.bills.filter(b => b.id !== id);
+  saveDB(); renderAll();
+  toast('حذف شد');
+}
+
+/* =========================================================
+   PAYMENTS
+========================================================= */
+function fillDateSelects(){
+  const today = todayJalali();
+  const ySel = document.getElementById('pYear');
+  const mSel = document.getElementById('pMonth');
+  const dSel = document.getElementById('pDay');
+
+  const years = [];
+  for(let y = today.jy - 3; y <= today.jy + 1; y++) years.push(y);
+  ySel.innerHTML = years.map(y => '<option value="' + y + '">' + faNum(y) + '</option>').join('');
+  ySel.value = today.jy;
+
+  mSel.innerHTML = JALALI_MONTHS.map((m, i) =>
+    '<option value="' + (i+1) + '">' + m + '</option>').join('');
+  mSel.value = today.jm;
+
+  refreshDaySelect();
+  dSel.value = Math.min(today.jd, dSel.options.length);
+}
+function refreshDaySelect(){
+  const y = parseInt(document.getElementById('pYear').value, 10);
+  const m = parseInt(document.getElementById('pMonth').value, 10);
+  const len = jalaliMonthLength(y, m);
+  const dSel = document.getElementById('pDay');
+  const cur = parseInt(dSel.value, 10) || 1;
+  dSel.innerHTML = '';
+  for(let d = 1; d <= len; d++){
+    const o = document.createElement('option');
+    o.value = d; o.textContent = faNum(d);
+    dSel.appendChild(o);
+  }
+  dSel.value = Math.min(cur, len);
+}
+
+function addPayment(){
+  const unitId = document.getElementById('pUnit').value;
+  const amount = parseFloat(document.getElementById('pAmount').value);
+  const note = document.getElementById('pNote').value.trim();
+  const y = parseInt(document.getElementById('pYear').value, 10);
+  const m = parseInt(document.getElementById('pMonth').value, 10);
+  const d = parseInt(document.getElementById('pDay').value, 10);
+
+  if(!unitId) return toast('واحد را انتخاب کنید');
+  if(!amount || amount <= 0) return toast('مبلغ معتبر نیست');
+  if(!y || !m || !d) return toast('تاریخ معتبر نیست');
+
+  DB.payments.push({
+    id: uid(), unitId, amount, note: note || '',
+    jy: y, jm: m, jd: d,
+    createdAt: Date.now()
+  });
+
+  document.getElementById('pAmount').value = '';
+  document.getElementById('pNote').value = '';
+
+  saveDB(); renderAll();
+  toast('پرداخت ثبت شد');
+}
+function deletePayment(id){
+  if(!confirm('این پرداخت حذف شود؟')) return;
+  DB.payments = DB.payments.filter(p => p.id !== id);
+  saveDB(); renderAll();
+  toast('حذف شد');
+}
+
+/* =========================================================
+   CALCULATIONS
+========================================================= */
+function unitDebt(unitId){
+  let debt = 0;
+  DB.bills.forEach(b => {
+    if(b.source === 'units' && b.shares[unitId] != null){
+      debt += b.shares[unitId];
+    }
+  });
+  DB.payments.forEach(p => {
+    if(p.unitId === unitId) debt -= p.amount;
+  });
+  return debt;
+}
+function totalDebt(){
+  return DB.units.reduce((s,u) => s + Math.max(0, unitDebt(u.id)), 0);
+}
+function fundBalance(){
+  const paid = DB.payments.reduce((s,p)=>s+p.amount, 0);
+  const fromFund = DB.bills.filter(b=>b.source==='fund').reduce((s,b)=>s+b.amount, 0);
+  return paid - fromFund;
+}
+function totalBills(){
+  return DB.bills.reduce((s,b)=>s+b.amount, 0);
+}
+
+/* =========================================================
+   RENDER
+========================================================= */
+function renderAll(){
+  renderDashboard();
+  renderUnits();
+  renderBills();
+  renderPayments();
+  renderReminders();
+  renderResidentLinks();
+  applySettings();
+  saveDB();
+}
+function renderDashboard(){
+  document.getElementById('stFund').textContent = fmt(fundBalance());
+  document.getElementById('stDebt').textContent = fmt(totalDebt());
+  document.getElementById('stUnits').textContent = faNum(DB.units.length);
+  document.getElementById('stBills').textContent = fmt(totalBills());
+
+  const ov = document.getElementById('unitOverview');
+  if(DB.units.length === 0){
+    ov.innerHTML = '<div class="empty"><div class="ico">🏢</div>هنوز واحدی اضافه نشده</div>';
+  } else {
+    ov.innerHTML = DB.units.map(u => {
+      const d = unitDebt(u.id);
+      const cls = d > 0 ? 'debt' : 'paid';
+      return '<div class="unit-chip ' + cls + '">' + u.num +
+        '<span class="cnt">' + (d>0 ? fmt(d) + ' بدهی' : 'تسویه') + '</span></div>';
+    }).join('');
+  }
+
+  const rb = document.getElementById('recentBills');
+  const recent = [...DB.bills].sort((a,b)=>b.createdAt - a.createdAt).slice(0,5);
+  if(recent.length === 0){
+    rb.innerHTML = '<div class="empty"><div class="ico">📄</div>قبضی ثبت نشده</div>';
+  } else {
+    rb.innerHTML = recent.map(b =>
+      '<div class="item"><div class="item-main">' +
+      '<div class="item-title">' + b.title + '</div>' +
+      '<div class="item-sub"><span>' + fmt(b.amount) + ' تومان</span>' +
+      '<span class="badge ' + (b.source==='fund'?'badge-blue':'badge-gray') + '">' +
+      (b.source==='fund'?'از صندوق':'از واحدها') + '</span></div></div></div>'
+    ).join('');
+  }
+}
+function renderUnits(){
+  const box = document.getElementById('unitsList');
+  if(DB.units.length === 0){
+    box.innerHTML = '<div class="empty"><div class="ico">🏢</div>هنوز واحدی اضافه نشده</div>';
+  } else {
+    box.innerHTML = DB.units.map(u => {
+      const d = unitDebt(u.id);
+      return '<div class="item">' +
+        '<div class="item-main">' +
+        '<div class="item-title">واحد ' + u.num + '</div>' +
+        '<div class="item-sub"><span>👥 ' + faNum(u.people) + ' نفر</span>' +
+        (u.phone ? '<span dir="ltr">📱 ' + u.phone + '</span>' : '') +
+        '<span class="badge ' + (d>0?'badge-red':'badge-green') + '">' +
+        (d>0 ? fmt(d) + ' بدهی' : 'تسویه') + '</span></div></div>' +
+        '<button class="btn btn-sm btn-soft" onclick="editUnit(\'' + u.id + '\')">✏️</button>' +
+        '<button class="btn btn-sm btn-danger" onclick="deleteUnit(\'' + u.id + '\')">🗑️</button>' +
+        '</div>';
+    }).join('');
+  }
+  const pUnit = document.getElementById('pUnit');
+  const prev = pUnit.value;
+  pUnit.innerHTML = DB.units.length
+    ? DB.units.map(u => '<option value="' + u.id + '">واحد ' + u.num + '</option>').join('')
+    : '<option value="">ابتدا واحد اضافه کنید</option>';
+  if(prev && DB.units.some(u=>u.id===prev)) pUnit.value = prev;
+}
+function renderBills(){
+  const box = document.getElementById('billsList');
+  if(DB.bills.length === 0){
+    box.innerHTML = '<div class="empty"><div class="ico">📄</div>قبضی ثبت نشده</div>';
+    return;
+  }
+  box.innerHTML = [...DB.bills].sort((a,b)=>b.createdAt-a.createdAt).map(b => {
+    const splitLabel = b.split==='per_unit'?'مساوی':b.split==='per_person'?'بر اساس نفرات':'دستی';
+    return '<div class="item">' +
+      '<div class="item-main">' +
+      '<div class="item-title">' + b.title + '</div>' +
+      '<div class="item-sub">' +
+      '<span>' + fmt(b.amount) + ' تومان</span>' +
+      '<span class="badge badge-blue">' + splitLabel + '</span>' +
+      '<span class="badge ' + (b.source==='fund'?'badge-blue':'badge-gray') + '">' +
+      (b.source==='fund'?'از صندوق':'از واحدها') + '</span></div></div>' +
+      '<button class="btn btn-sm btn-danger" onclick="deleteBill(\'' + b.id + '\')">🗑️</button>' +
+      '</div>';
+  }).join('');
+}
+function renderPayments(){
+  const box = document.getElementById('paymentsList');
+  if(DB.payments.length === 0){
+    box.innerHTML = '<div class="empty"><div class="ico">💰</div>پرداختی ثبت نشده</div>';
+    return;
+  }
+  box.innerHTML = [...DB.payments].sort((a,b)=>b.createdAt-a.createdAt).map(p => {
+    const u = findUnit(p.unitId);
+    const dateStr = (p.jy && p.jm && p.jd) ? formatJalali(p.jy, p.jm, p.jd) : '';
+    return '<div class="item">' +
+      '<div class="item-main">' +
+      '<div class="item-title">واحد ' + (u ? u.num : '؟') + '</div>' +
+      '<div class="item-sub"><span>' + fmt(p.amount) + ' تومان</span>' +
+      (dateStr ? '<span>📅 ' + dateStr + '</span>' : '') +
+      (p.note ? '<span>' + p.note + '</span>' : '') +
+      '</div></div>' +
+      '<button class="btn btn-sm btn-danger" onclick="deletePayment(\'' + p.id + '\')">🗑️</button>' +
+      '</div>';
+  }).join('');
+}
+
+/* ---------- Reminders (WhatsApp) ---------- */
+function buildReminderText(u, debt){
+  const name = DB.settings.name || 'ساختمان';
+  const card = DB.settings.card ? ('\n\n💳 شماره کارت مدیر:\n' + DB.settings.card) : '';
+  return 'سلام،\n' +
+    'یادآوری از طرف مدیریت ' + name + ':\n' +
+    'واحد ' + u.num + ' مبلغ ' + fmt(debt) + ' تومان بدهی شارژ دارد.\n' +
+    'لطفاً نسبت به تسویه اقدام فرمایید. با تشکر 🙏' + card;
+}
+function whatsappLink(phone, text){
+  const p = normalizePhone(phone);
+  const t = encodeURIComponent(text);
+  if(!p) return 'https://wa.me/?text=' + t;
+  return 'https://wa.me/' + p + '?text=' + t;
+}
+function renderReminders(){
+  const box = document.getElementById('remindersList');
+  const debtors = DB.units
+    .map(u => ({ u, debt: unitDebt(u.id) }))
+    .filter(x => x.debt > 0)
+    .sort((a,b) => b.debt - a.debt);
+
+  if(debtors.length === 0){
+    box.innerHTML = '<div class="empty"><div class="ico">✅</div>همه واحدها تسویه هستند</div>';
+    return;
+  }
+  box.innerHTML = debtors.map(({u, debt}) => {
+    const text = buildReminderText(u, debt);
+    const link = whatsappLink(u.phone, text);
+    return '<div class="item">' +
+      '<div class="item-main">' +
+      '<div class="item-title">واحد ' + u.num + '</div>' +
+      '<div class="item-sub">' +
+      '<span class="badge badge-red">' + fmt(debt) + ' بدهی</span>' +
+      (u.phone ? '<span dir="ltr">' + u.phone + '</span>' : '<span>بدون شماره</span>') +
+      '</div></div>' +
+      '<a class="btn btn-sm btn-wa" href="' + link + '" target="_blank" rel="noopener">واتساپ</a>' +
+      '<button class="btn btn-sm btn-soft" onclick="copyText(\'' + text.replace(/'/g,"\\'").replace(/\n/g,"\\n") + '\')">📋</button>' +
+      '</div>';
+  }).join('');
+}
+function renderResidentLinks(){
+  const box = document.getElementById('residentLinks');
+  if(DB.units.length === 0){
+    box.innerHTML = '<div class="hint">ابتدا واحد اضافه کنید.</div>';
+    return;
+  }
+  const base = location.origin + location.pathname;
+  box.innerHTML = DB.units.map(u => {
+    const link = base + '#/r/' + u.id;
+    return '<div class="item">' +
+      '<div class="item-main"><div class="item-title">واحد ' + u.num + '</div>' +
+      '<div class="item-sub" style="direction:ltr;text-align:left;word-break:break-all">' + link + '</div></div>' +
+      '<button class="btn btn-sm btn-soft" onclick="copyText(\'' + link + '\')">📋</button>' +
+      '<button class="btn btn-sm btn-ghost" onclick="openResident(\'' + u.id + '\')">👁️</button>' +
+      '</div>';
+  }).join('');
+}
+
+/* =========================================================
+   RESIDENT
+========================================================= */
+function handleRoute(){
+  const m = (location.hash || '').match(/^#\/r\/(.+)$/);
+  if(m){
+    showResident(m[1]);
+  } else {
+    const old = document.getElementById('residentView');
+    if(old) old.remove();
+    document.getElementById('mainApp').style.display = 'block';
+    document.getElementById('appHeader').style.display = 'flex';
+    document.getElementById('fab').style.display = 'grid';
+  }
+}
+function openResident(unitId){ location.hash = '#/r/' + unitId; }
+function showResident(unitId){
+  const u = findUnit(unitId);
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('appHeader').style.display = 'none';
+  document.getElementById('fab').style.display = 'none';
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+
+  const old = document.getElementById('residentView');
+  if(old) old.remove();
+
+  const wrap = document.createElement('div');
+  wrap.id = 'residentView';
+  wrap.className = 'resident-wrap';
+
+  if(!u){
+    wrap.innerHTML = '<div class="resident-card"><h3>واحد یافت نشد</h3>' +
+      '<button class="btn btn-ghost btn-block" style="margin-top:16px" onclick="location.hash=\'\'">بازگشت</button></div>';
+    document.body.appendChild(wrap);
+    return;
+  }
+
+  const debt = unitDebt(u.id);
+  const card = DB.settings.card || '';
+  const logoHtml = DB.settings.logo ? '<img src="' + DB.settings.logo + '">' : '🏢';
+  const cardNum = card.replace(/\D/g,'');
+
+  wrap.innerHTML =
+    '<div class="resident-card">' +
+      '<div class="resident-logo">' + logoHtml + '</div>' +
+      '<div style="font-weight:700;font-size:1.1rem">' + (DB.settings.name||'ساختمان من') + '</div>' +
+      '<div style="color:var(--muted);font-size:.85rem;margin-top:4px">واحد ' + u.num + '</div>' +
+      '<div style="margin-top:18px;color:var(--muted);font-size:.85rem">بدهی شما</div>' +
+      '<div class="resident-big" style="color:' + (debt>0?'var(--danger)':'var(--success)') + '">' +
+        (debt>0 ? fmt(debt) + ' تومان' : 'تسویه ✅') +
+      '</div>' +
+      (debt > 0 && card ?
+        '<div style="margin-top:16px">' +
+          '<div style="color:var(--muted);font-size:.8rem;margin-bottom:6px">شماره کارت مدیر برای واریز</div>' +
+          '<div class="card-num"><span class="num">' + card + '</span>' +
+          '<button class="copy-btn" onclick="copyText(\'' + cardNum + '\')">📋</button></div>' +
+        '</div>' : '') +
+      '<div style="margin-top:20px">' +
+        '<button class="btn btn-ghost btn-block" onclick="location.hash=\'\'">بازگشت</button>' +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(wrap);
+}
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+function saveSetting(key, value){
+  DB.settings[key] = value;
+  saveDB(); applySettings();
+  if(key === 'name') toast('نام ذخیره شد');
+}
+function setTheme(t){ DB.settings.theme = t; saveDB(); applySettings(); }
+function uploadLogo(e){
+  const f = e.target.files[0];
+  if(!f) return;
+  if(f.size > 500 * 1024) return toast('حجم لوگو باید کمتر از ۵۰۰KB باشد');
+  const r = new FileReader();
+  r.onload = () => {
+    DB.settings.logo = r.result;
+    saveDB(); applySettings();
+    toast('لوگو ذخیره شد');
+  };
+  r.readAsDataURL(f);
+}
+function removeLogo(){
+  DB.settings.logo = '';
+  saveDB(); applySettings();
+  toast('لوگو حذف شد');
+}
+
+/* =========================================================
+   COPY
+========================================================= */
+function copyText(text){
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(()=>toast('کپی شد')).catch(()=>fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+function fallbackCopy(text){
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); toast('کپی شد'); }
+  catch(e){ toast('کپی نشد'); }
+  ta.remove();
+}
+
+/* =========================================================
+   IMPORT / EXPORT
+========================================================= */
+function exportData(){
+  const blob = new Blob([JSON.stringify(DB, null, 2)], { type:'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'sakhteman-backup-' + Date.now() + '.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('فایل ذخیره شد');
+}
+function importData(e){
+  const f = e.target.files[0];
+  if(!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      const d = JSON.parse(r.result);
+      if(!d.units || !d.bills) throw new Error('bad');
+      DB.units = d.units || [];
+      DB.bills = d.bills || [];
+      DB.payments = d.payments || [];
+      DB.settings = Object.assign(DB.settings, d.settings || {});
+      saveDB(); renderAll();
+      toast('داده‌ها وارد شد');
+    }catch(err){ toast('فایل معتبر نیست'); }
+  };
+  r.readAsText(f);
+  e.target.value = '';
+}
+function clearAll(){
+  DB = { units:[], bills:[], payments:[], settings: Object.assign({}, DB.settings) };
+  saveDB(); renderAll();
+  toast('همه داده‌ها پاک شد');
+}
+
+/* =========================================================
+   PDF
+========================================================= */
+async function exportPDF(){
+  if(!window.jspdf) return toast('کتابخانه PDF بارگذاری نشده — اینترنت را چک کنید');
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+  const type = document.getElementById('rType').value;
+  const font = 'Tahoma, Vazirmatn, sans-serif';
+
+  function faCanvas(text, size, bold, color, align){
+    const c = document.createElement('canvas');
+    const scale = 4;
+    const ctx = c.getContext('2d');
+    ctx.font = (bold?'bold ':'') + (size*scale) + 'px ' + font;
+    const w = Math.ceil(ctx.measureText(text).width) + 20;
+    c.width = w; c.height = Math.ceil(size*scale*1.6);
+    const c2 = c.getContext('2d');
+    c2.font = (bold?'bold ':'') + (size*scale) + 'px ' + font;
+    c2.fillStyle = color || '#000';
+    c2.textBaseline = 'top';
+    c2.direction = 'rtl';
+    c2.textAlign = align || 'right';
+    const x = (align === 'center') ? c.width/2 : c.width - 10;
+    c2.fillText(text, x, 5);
+    return { data: c.toDataURL('image/png'), w: c.width, h: c.height };
+  }
+  function addFa(text, size, bold, color, y, x, maxW, align){
+    const r = faCanvas(text, size, bold, color, align);
+    const ratio = r.w / r.h;
+    let drawW = maxW || 100;
+    let drawH = drawW / ratio;
+    if(drawH > 20){ drawH = 20; drawW = drawH * ratio; }
+    doc.addImage(r.data, 'PNG', x, y, drawW, drawH);
+    return drawH;
+  }
+
+  // Header
+  addFa('گزارش ' + (type==='debtors'?'بدهکاران':type==='fund'?'صندوق':type==='bills'?'قبض‌ها':'کامل'),
+        16, true, '#1e40af', 10, 100, 90, 'center');
+  addFa(DB.settings.name || 'ساختمان من', 11, false, '#64748b', 10, 10, 60);
+  addFa('تاریخ: ' + new Date().toLocaleDateString('fa-IR'), 9, false, '#94a3b8', 22, 10, 60);
+
+  let y = 35;
+  function line(text, size, bold, color){
+    if(y > 280){ doc.addPage(); y = 15; }
+    const h = addFa(text, size||10, bold||false, color||'#0f172a', y, 20, 170);
+    y += h + 1.5;
+  }
+
+  if(type === 'debtors' || type === 'full'){
+    line('— لیست بدهکاران —', 13, true, '#dc2626');
+    y += 1;
+    DB.units.forEach(u => {
+      const d = unitDebt(u.id);
+      if(d > 0) line('واحد ' + u.num + ' : ' + fmt(d) + ' تومان بدهی', 10, false, '#dc2626');
+    });
+    y += 3;
+  }
+  if(type === 'fund' || type === 'full'){
+    line('— گردش صندوق —', 13, true, '#2563eb');
+    line('موجودی فعلی: ' + fmt(fundBalance()) + ' تومان', 11, true, '#2563eb');
+    line('جمع پرداخت‌های واحدها: ' + fmt(DB.payments.reduce((s,p)=>s+p.amount,0)) + ' تومان', 10);
+    line('جمع قبض‌های پرداخت‌شده از صندوق: ' + fmt(DB.bills.filter(b=>b.source==='fund').reduce((s,b)=>s+b.amount,0)) + ' تومان', 10);
+    y += 3;
+  }
+  if(type === 'bills' || type === 'full'){
+    line('— لیست قبض‌ها —', 13, true, '#0f172a');
+    DB.bills.forEach(b => {
+      line(b.title + ' : ' + fmt(b.amount) + ' تومان (' + (b.source==='fund'?'از صندوق':'از واحدها') + ')', 10);
+    });
+    y += 3;
+  }
+  if(type === 'full'){
+    line('— وضعیت همه واحدها —', 13, true, '#0f172a');
+    DB.units.forEach(u => {
+      const d = unitDebt(u.id);
+      line('واحد ' + u.num + ' (' + faNum(u.people) + ' نفر) : ' + (d>0 ? fmt(d)+' بدهی' : 'تسویه'),
+           10, false, d>0 ? '#dc2626' : '#16a34a');
+    });
+  }
+
+  doc.save('report-' + type + '-' + Date.now() + '.pdf');
+  toast('PDF دانلود شد');
+}
+
+/* =========================================================
+   BOOT
+========================================================= */
+window.addEventListener('hashchange', handleRoute);
+
+function boot(){
+  loadDB();
+  fillDateSelects();
+  document.getElementById('pYear').addEventListener('change', refreshDaySelect);
+  document.getElementById('pMonth').addEventListener('change', refreshDaySelect);
+  handleRoute();
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('sw.js').catch(e => console.warn('SW:', e));
+  }
+}
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
+}
+</script>
+</body>
+</html>
