@@ -1,4 +1,4 @@
-const CACHE = 'sakhteman-v1';
+const CACHE = 'sakhteman-v2';
 const CORE = [
   './',
   './index.html',
