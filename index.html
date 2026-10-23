@@ -50,7 +50,6 @@ body{
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,select,textarea{font-family:inherit;font-size:1rem}
 
-/* Header */
 header{
   position:sticky;top:0;z-index:50;
   background:var(--card); border-bottom:1px solid var(--border);
@@ -73,7 +72,6 @@ header{
 }
 .hamburger:active{transform:scale(.92)}
 
-/* Drawer */
 .overlay{
   position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;
   opacity:0;pointer-events:none;transition:opacity .25s;
@@ -98,7 +96,6 @@ header{
 .nav-item:hover,.nav-item.active{background:var(--primary-soft);color:var(--primary)}
 .nav-item .ico{font-size:1.2rem;width:24px;text-align:center}
 
-/* Main */
 main{max-width:720px;margin:0 auto;padding:16px;padding-bottom:100px}
 .section{display:none}
 .section.active{display:block;animation:fade .25s}
@@ -111,7 +108,6 @@ main{max-width:720px;margin:0 auto;padding:16px;padding-bottom:100px}
 }
 .card-title{font-weight:700;font-size:1.05rem;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 
-/* Forms */
 .field{margin-bottom:14px}
 .field label{display:block;font-size:.85rem;font-weight:600;color:var(--muted);margin-bottom:6px}
 .input{
@@ -136,7 +132,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .btn-sm{padding:8px 12px;font-size:.85rem;border-radius:10px}
 .btn-wa{background:#25D366;color:#fff}
 
-/* Stats */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px}
 .stat{
   background:var(--card);border-radius:var(--radius);padding:16px;
@@ -148,7 +143,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .stat-value.red{color:var(--danger)}
 .stat-value.blue{color:var(--primary)}
 
-/* Lists */
 .item{
   display:flex;align-items:center;gap:12px;padding:12px 14px;
   background:var(--bg);border:1px solid var(--border);border-radius:14px;
@@ -167,7 +161,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .badge-blue{background:var(--primary-soft);color:var(--primary)}
 .badge-gray{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
 
-/* Unit grid */
 .unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px}
 .unit-chip{
   padding:10px 8px;border-radius:12px;text-align:center;
@@ -178,7 +171,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .unit-chip.debt{background:rgba(220,38,38,.1);border-color:var(--danger);color:var(--danger)}
 .unit-chip .cnt{font-size:.7rem;color:var(--muted);font-weight:400;display:block;margin-top:2px}
 
-/* Modal */
 .modal{
   position:fixed;inset:0;z-index:200;display:none;
   align-items:flex-end;justify-content:center;background:rgba(0,0,0,.5);
@@ -194,7 +186,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .modal-title{font-weight:700;font-size:1.1rem}
 .modal-close{width:36px;height:36px;border-radius:10px;background:var(--bg);display:grid;place-items:center;font-size:18px}
 
-/* Misc */
 .empty{text-align:center;padding:40px 20px;color:var(--muted)}
 .empty .ico{font-size:3rem;margin-bottom:10px;opacity:.5}
 .row{display:flex;gap:10px}
@@ -220,7 +211,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .theme-opt[data-t="redlight"]{background:#fef2f2;color:#991b1b}
 .theme-opt[data-t="bluelight"]{background:#eff6ff;color:#1e40af}
 
-/* Resident view */
 .resident-wrap{max-width:480px;margin:0 auto;padding:24px 16px;min-height:100vh}
 .resident-card{
   background:var(--card);border-radius:20px;padding:24px;
@@ -239,7 +229,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .card-num .num{font-family:monospace;font-size:1.15rem;font-weight:700;letter-spacing:1px;direction:ltr}
 .copy-btn{width:40px;height:40px;border-radius:10px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:16px}
 
-/* FAB */
 .fab{
   position:fixed;bottom:24px;left:24px;width:56px;height:56px;border-radius:18px;
   background:var(--primary);color:#fff;display:grid;place-items:center;
@@ -248,19 +237,27 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 }
 .fab:active{transform:scale(.9)}
 
-/* Manual split rows */
 .manual-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .manual-row .lbl{font-size:.85rem;font-weight:600;min-width:70px}
 .manual-row input{flex:1}
 
-/* Jalali date row */
 .date-row{display:flex;gap:8px}
 .date-row select{flex:1}
+
+.link-box{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:10px 12px;font-size:.75rem;direction:ltr;text-align:left;
+  word-break:break-all;font-family:monospace;color:var(--muted);
+}
+
+.back-bar{
+  max-width:480px;margin:0 auto 12px;padding:0 4px;
+  display:flex;gap:8px;
+}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header id="appHeader">
   <div class="brand">
     <div class="brand-logo" id="brandLogo">🏢</div>
@@ -272,7 +269,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
   <button class="hamburger" onclick="openDrawer()">☰</button>
 </header>
 
-<!-- DRAWER -->
 <div class="overlay" id="overlay" onclick="closeDrawer()"></div>
 <nav class="drawer" id="drawer">
   <div class="drawer-header">
@@ -284,16 +280,15 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
   <button class="nav-item" data-nav="bills" onclick="nav('bills')"><span class="ico">📄</span> قبض‌ها</button>
   <button class="nav-item" data-nav="payments" onclick="nav('payments')"><span class="ico">💰</span> پرداخت‌ها</button>
   <button class="nav-item" data-nav="reminders" onclick="nav('reminders')"><span class="ico">🔔</span> یادآوری‌ها</button>
+  <button class="nav-item" data-nav="links" onclick="nav('links')"><span class="ico">🔗</span> لینک ساکنین</button>
   <button class="nav-item" data-nav="reports" onclick="nav('reports')"><span class="ico">📊</span> گزارش‌ها</button>
   <button class="nav-item" data-nav="settings" onclick="nav('settings')"><span class="ico">⚙️</span> تنظیمات</button>
   <div class="divider"></div>
-  <div class="hint">نسخه ۱.۱ • داده‌ها روی همین دستگاه ذخیره می‌شود</div>
+  <div class="hint">نسخه ۱.۲ • داده‌ها روی همین دستگاه ذخیره می‌شود</div>
 </nav>
 
-<!-- MAIN -->
 <main id="mainApp">
 
-  <!-- Dashboard -->
   <section class="section active" id="sec-dashboard">
     <div class="stats">
       <div class="stat"><div class="stat-label">موجودی صندوق</div><div class="stat-value blue" id="stFund">۰</div></div>
@@ -311,7 +306,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
     </div>
   </section>
 
-  <!-- Units -->
   <section class="section" id="sec-units">
     <div class="card">
       <div class="card-title">➕ افزودن واحد</div>
@@ -328,7 +322,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
     </div>
   </section>
 
-  <!-- Bills -->
   <section class="section" id="sec-bills">
     <div class="card">
       <div class="card-title">➕ ثبت قبض جدید</div>
@@ -358,7 +351,6 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
     </div>
   </section>
 
-  <!-- Payments -->
   <section class="section" id="sec-payments">
     <div class="card">
       <div class="card-title">💰 ثبت پرداخت</div>
@@ -381,18 +373,26 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
     </div>
   </section>
 
-  <!-- Reminders -->
   <section class="section" id="sec-reminders">
     <div class="card">
       <div class="card-title">🔔 یادآوری بدهی</div>
       <div class="hint" style="margin-bottom:14px">
-        یادآوری از طریق واتساپ با یک کلیک ارسال می‌شود. (اتصال به اینترنت و نصب واتساپ لازم است)
+        یادآوری از طریق واتساپ با یک کلیک ارسال می‌شود.
       </div>
       <div id="remindersList"></div>
     </div>
   </section>
 
-  <!-- Reports -->
+  <section class="section" id="sec-links">
+    <div class="card">
+      <div class="card-title">🔗 لینک ساکنین</div>
+      <div class="hint" style="margin-bottom:14px">
+        هر واحد یک لینک اختصاصی دارد. لینک را کپی کنید و به ساکن بدهید. ساکن فقط بدهی خودش را می‌بیند.
+      </div>
+      <div id="residentLinks"></div>
+    </div>
+  </section>
+
   <section class="section" id="sec-reports">
     <div class="card">
       <div class="card-title">📊 گزارش‌گیری PDF</div>
@@ -406,22 +406,15 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
         </select>
       </div>
       <button class="btn btn-primary btn-block" onclick="exportPDF()">📥 دانلود PDF</button>
-      <div class="hint">گزارش‌ها راست‌چین و با فونت فارسی تولید می‌شوند.</div>
-    </div>
-    <div class="card">
-      <div class="card-title">🔗 لینک‌های ساکنین</div>
-      <div class="hint" style="margin-bottom:12px">لینک هر واحد را کپی کنید و به ساکن بدهید. ساکن فقط بدهی خودش را می‌بیند.</div>
-      <div id="residentLinks"></div>
     </div>
   </section>
 
-  <!-- Settings -->
   <section class="section" id="sec-settings">
     <div class="card">
       <div class="card-title">🏢 اطلاعات ساختمان</div>
       <div class="field"><label>نام ساختمان</label><input class="input" id="setName" onchange="saveSetting('name',this.value)"></div>
       <div class="field"><label>شماره کارت مدیر (برای پرداخت ساکنین)</label><input class="input" id="setCard" dir="ltr" style="text-align:left" onchange="saveSetting('card',this.value)"></div>
-      <div class="field"><label>لوگو (اختیاری — برای هدر و PDF)</label><input class="input" type="file" accept="image/*" onchange="uploadLogo(event)"></div>
+      <div class="field"><label>لوگو (اختیاری)</label><input class="input" type="file" accept="image/*" onchange="uploadLogo(event)"></div>
       <div id="logoPreview" style="display:none;margin-top:8px">
         <img id="logoImg" style="width:60px;height:60px;border-radius:12px;object-fit:cover">
         <button class="btn btn-sm btn-danger" style="margin-top:8px" onclick="removeLogo()">حذف لوگو</button>
@@ -449,37 +442,27 @@ select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 
 </main>
 
-<!-- FAB -->
 <button class="fab" id="fab" onclick="nav('bills')">＋</button>
 
-<!-- Modal -->
 <div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal-box" id="modalBox"></div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
 
 <script>
-/* =========================================================
-   STATE
-========================================================= */
 let DB = {
-  units: [],
-  bills: [],
-  payments: [],
+  units: [], bills: [], payments: [],
   settings: { name: 'ساختمان من', card: '', theme: 'light', logo: '' }
 };
+let currentSection = 'dashboard';
+let isResidentView = false;
 
-/* =========================================================
-   HELPERS
-========================================================= */
 const fmt = n => (Number(n)||0).toLocaleString('fa-IR');
 const faNum = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
-
 const toast = (msg) => {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
@@ -503,10 +486,7 @@ function gregorianToJalali(gy, gm, gd){
   days %= 12053;
   jy += 4 * Math.floor(days / 1461);
   days %= 1461;
-  if(days > 365){
-    jy += Math.floor((days - 1) / 365);
-    days = (days - 1) % 365;
-  }
+  if(days > 365){ jy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
   const jm = (days < 186) ? 1 + Math.floor(days / 31) : 7 + Math.floor((days - 186) / 30);
   const jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30));
   return { jy, jm, jd };
@@ -516,48 +496,30 @@ function jalaliToGregorian(jy, jm, jd){
   jy -= (jy <= 979) ? 0 : 979;
   let days = (365 * jy) + (Math.floor(jy / 33) * 8) + Math.floor(((jy % 33) + 3) / 4)
              + 78 + jd + ((jm < 7) ? (jm - 1) * 31 : ((jm - 7) * 30) + 186);
-  gy += 400 * Math.floor(days / 146097);
-  days %= 146097;
-  if(days > 36524){
-    gy += 100 * Math.floor(--days / 36524);
-    days %= 36524;
-    if(days >= 365) days++;
-  }
-  gy += 4 * Math.floor(days / 1461);
-  days %= 1461;
-  if(days > 365){
-    gy += Math.floor((days - 1) / 365);
-    days = (days - 1) % 365;
-  }
+  gy += 400 * Math.floor(days / 146097); days %= 146097;
+  if(days > 36524){ gy += 100 * Math.floor(--days / 36524); days %= 36524; if(days >= 365) days++; }
+  gy += 4 * Math.floor(days / 1461); days %= 1461;
+  if(days > 365){ gy += Math.floor((days - 1) / 365); days = (days - 1) % 365; }
   let gd = days + 1;
   const sal_a = [0,31,((gy%4===0 && gy%100!==0)||(gy%400===0))?29:28,31,30,31,30,31,31,30,31,30,31];
   let gm = 0;
-  for(gm = 1; gm <= 12; gm++){
-    if(gd <= sal_a[gm]) break;
-    gd -= sal_a[gm];
-  }
+  for(gm = 1; gm <= 12; gm++){ if(gd <= sal_a[gm]) break; gd -= sal_a[gm]; }
   return { gy, gm, gd };
 }
-function todayJalali(){
-  const now = new Date();
-  return gregorianToJalali(now.getFullYear(), now.getMonth() + 1, now.getDate());
-}
+function todayJalali(){ const n = new Date(); return gregorianToJalali(n.getFullYear(), n.getMonth()+1, n.getDate()); }
 function jalaliMonthLength(jy, jm){
   if(jm <= 6) return 31;
   if(jm <= 11) return 30;
-  // اسفند: ۲۹ یا ۳۰
   const { gy, gm, gd } = jalaliToGregorian(jy, 12, 1);
   const next = new Date(gy, gm - 1, gd + 1);
-  const nextJ = gregorianToJalali(next.getFullYear(), next.getMonth() + 1, next.getDate());
-  return (nextJ.jm === 1) ? 30 : 29;
+  const nJ = gregorianToJalali(next.getFullYear(), next.getMonth()+1, next.getDate());
+  return (nJ.jm === 1) ? 30 : 29;
 }
 function formatJalali(jy, jm, jd){
   return faNum(jy) + '/' + faNum(String(jm).padStart(2,'0')) + '/' + faNum(String(jd).padStart(2,'0'));
 }
 
-/* =========================================================
-   STORAGE
-========================================================= */
+/* ---------- STORAGE ---------- */
 function loadDB(){
   try{
     const raw = localStorage.getItem('sakhteman_db');
@@ -568,24 +530,21 @@ function loadDB(){
       DB.payments = p.payments || [];
       DB.settings = Object.assign(DB.settings, p.settings || {});
     }
-  }catch(e){ console.warn('loadDB error', e); }
+  }catch(e){ console.warn('loadDB', e); }
   applySettings();
   renderAll();
 }
 function saveDB(){
   try{ localStorage.setItem('sakhteman_db', JSON.stringify(DB)); }
-  catch(e){ toast('خطا در ذخیره‌سازی'); console.warn(e); }
+  catch(e){ toast('خطا در ذخیره‌سازی'); }
 }
 function applySettings(){
   document.documentElement.setAttribute('data-theme', DB.settings.theme || 'light');
   document.getElementById('buildingName').textContent = DB.settings.name || 'ساختمان من';
-  document.getElementById('buildingSub').textContent = DB.units.length
-    ? faNum(DB.units.length) + ' واحد' : 'مدیریت هزینه‌ها';
+  document.getElementById('buildingSub').textContent = DB.units.length ? faNum(DB.units.length) + ' واحد' : 'مدیریت هزینه‌ها';
   document.getElementById('setName').value = DB.settings.name || '';
   document.getElementById('setCard').value = DB.settings.card || '';
-  document.querySelectorAll('.theme-opt').forEach(b=>{
-    b.classList.toggle('active', b.dataset.t === DB.settings.theme);
-  });
+  document.querySelectorAll('.theme-opt').forEach(b=>{ b.classList.toggle('active', b.dataset.t === DB.settings.theme); });
   const brand = document.getElementById('brandLogo');
   if(DB.settings.logo){
     brand.innerHTML = '<img src="' + DB.settings.logo + '" alt="logo">';
@@ -597,42 +556,58 @@ function applySettings(){
   }
 }
 
-/* =========================================================
-   NAV / MODAL
-========================================================= */
-function openDrawer(){
-  document.getElementById('drawer').classList.add('open');
-  document.getElementById('overlay').classList.add('open');
-}
-function closeDrawer(){
-  document.getElementById('drawer').classList.remove('open');
-  document.getElementById('overlay').classList.remove('open');
-}
-function nav(id){
+/* ---------- NAV + HISTORY ---------- */
+function openDrawer(){ document.getElementById('drawer').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+function closeDrawer(){ document.getElementById('drawer').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+
+function showSection(id){
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   const sec = document.getElementById('sec-' + id);
   if(sec) sec.classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => {
-    n.classList.toggle('active', n.dataset.nav === id);
-  });
+  document.querySelectorAll('.nav-item').forEach(n => { n.classList.toggle('active', n.dataset.nav === id); });
   document.getElementById('fab').style.display = (id === 'bills' || id === 'dashboard') ? 'grid' : 'none';
+  currentSection = id;
   closeDrawer();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+function nav(id){
+  if(isResidentView) return;
+  if(id === currentSection){ closeDrawer(); return; }
+  history.pushState({ type: 'section', section: id }, '', location.pathname + location.search);
+  showSection(id);
+}
+
+window.addEventListener('popstate', function(e){
+  const state = e.state;
+  if(isResidentView){
+    isResidentView = false;
+    exitResidentView();
+    return;
+  }
+  if(state && state.type === 'section' && state.section){
+    showSection(state.section);
+  } else if(state && state.type === 'resident' && state.unitId){
+    showResident(state.unitId);
+  } else {
+    // برگشت به داشبورد
+    if(currentSection !== 'dashboard'){
+      showSection('dashboard');
+      history.replaceState({ type: 'section', section: 'dashboard' }, '', location.pathname + location.search);
+    }
+    // اگه توی داشبورد بودیم، بذار مرورگر ببنده
+  }
+});
+
 function openModal(title, html){
   document.getElementById('modalBox').innerHTML =
     '<div class="modal-header"><span class="modal-title">' + title + '</span>' +
     '<button class="modal-close" onclick="closeModal()">✕</button></div>' + html;
   document.getElementById('modal').classList.add('open');
 }
-function closeModal(){
-  document.getElementById('modal').classList.remove('open');
-  document.getElementById('modalBox').innerHTML = '';
-}
+function closeModal(){ document.getElementById('modal').classList.remove('open'); document.getElementById('modalBox').innerHTML = ''; }
 
-/* =========================================================
-   UNITS
-========================================================= */
+/* ---------- UNITS ---------- */
 function normalizePhone(p){
   if(!p) return '';
   let s = String(p).replace(/[^\d+]/g, '');
@@ -649,61 +624,47 @@ function addUnit(){
   if(!num) return toast('شماره واحد را وارد کنید');
   if(!people || people < 1) return toast('تعداد نفرات معتبر نیست');
   if(DB.units.some(u => u.num === num)) return toast('این شماره واحد قبلاً ثبت شده');
-
   DB.units.push({ id: uid(), num, people, phone: phone || '', createdAt: Date.now() });
   document.getElementById('uNum').value = '';
   document.getElementById('uPeople').value = '1';
   document.getElementById('uPhone').value = '';
-  saveDB(); renderAll();
-  toast('واحد اضافه شد');
+  saveDB(); renderAll(); toast('واحد اضافه شد');
 }
 function editUnit(id){
-  const u = findUnit(id);
-  if(!u) return;
+  const u = findUnit(id); if(!u) return;
   openModal('ویرایش واحد ' + u.num,
     '<div class="field"><label>شماره واحد</label><input class="input" id="euNum" value="' + u.num + '"></div>' +
     '<div class="field"><label>تعداد نفرات</label><input class="input" id="euPeople" type="number" min="1" value="' + u.people + '"></div>' +
-    '<div class="field"><label>شماره تلفن</label><input class="input" id="euPhone" dir="ltr" style="text-align:left" value="' + (u.phone||'') + '" placeholder="09123456789"></div>' +
-    '<button class="btn btn-primary btn-block" onclick="saveEditUnit(\'' + id + '\')">ذخیره</button>'
-  );
+    '<div class="field"><label>شماره تلفن</label><input class="input" id="euPhone" dir="ltr" style="text-align:left" value="' + (u.phone||'') + '"></div>' +
+    '<button class="btn btn-primary btn-block" onclick="saveEditUnit(\'' + id + '\')">ذخیره</button>');
 }
 function saveEditUnit(id){
-  const u = findUnit(id);
-  if(!u) return;
+  const u = findUnit(id); if(!u) return;
   const num = document.getElementById('euNum').value.trim();
   const people = parseInt(document.getElementById('euPeople').value, 10);
   const phone = document.getElementById('euPhone').value.trim();
   if(!num || !people || people < 1) return toast('اطلاعات معتبر نیست');
   if(DB.units.some(x => x.num === num && x.id !== id)) return toast('این شماره تکراری است');
   u.num = num; u.people = people; u.phone = phone || '';
-  saveDB(); renderAll(); closeModal();
-  toast('ذخیره شد');
+  saveDB(); renderAll(); closeModal(); toast('ذخیره شد');
 }
 function deleteUnit(id){
   if(!confirm('این واحد حذف شود؟')) return;
   DB.units = DB.units.filter(u => u.id !== id);
   DB.payments = DB.payments.filter(p => p.unitId !== id);
   DB.bills.forEach(b => { delete b.shares[id]; delete b.paidBy[id]; });
-  saveDB(); renderAll();
-  toast('حذف شد');
+  saveDB(); renderAll(); toast('حذف شد');
 }
 
-/* =========================================================
-   BILLS
-========================================================= */
+/* ---------- BILLS ---------- */
 function toggleManual(){
   const mode = document.getElementById('bSplit').value;
   const box = document.getElementById('manualBox');
   if(mode !== 'manual'){ box.style.display = 'none'; box.innerHTML = ''; return; }
-  if(DB.units.length === 0){
-    box.innerHTML = '<div class="hint">ابتدا واحد اضافه کنید.</div>';
-    box.style.display = 'block';
-    return;
-  }
+  if(DB.units.length === 0){ box.innerHTML = '<div class="hint">ابتدا واحد اضافه کنید.</div>'; box.style.display = 'block'; return; }
   box.innerHTML = DB.units.map(u =>
     '<div class="manual-row"><span class="lbl">واحد ' + u.num + '</span>' +
-    '<input class="input" type="number" id="man-' + u.id + '" placeholder="مبلغ" value="0"></div>'
-  ).join('');
+    '<input class="input" type="number" id="man-' + u.id + '" placeholder="مبلغ" value="0"></div>').join('');
   box.style.display = 'block';
 }
 function addBill(){
@@ -711,11 +672,9 @@ function addBill(){
   const amount = parseFloat(document.getElementById('bAmount').value);
   const split = document.getElementById('bSplit').value;
   const source = document.getElementById('bSource').value;
-
   if(!title) return toast('عنوان قبض را وارد کنید');
   if(!amount || amount <= 0) return toast('مبلغ معتبر نیست');
   if(DB.units.length === 0) return toast('ابتدا واحد اضافه کنید');
-
   let shares = {};
   if(split === 'manual'){
     let sum = 0;
@@ -724,9 +683,7 @@ function addBill(){
       const v = el ? (parseFloat(el.value) || 0) : 0;
       shares[u.id] = v; sum += v;
     });
-    if(Math.abs(sum - amount) > 1){
-      return toast('مجموع سهم‌ها با مبلغ کل برابر نیست (' + fmt(sum) + ' از ' + fmt(amount) + ')');
-    }
+    if(Math.abs(sum - amount) > 1) return toast('مجموع سهم‌ها با مبلغ کل برابر نیست (' + fmt(sum) + ' از ' + fmt(amount) + ')');
   } else if(split === 'per_unit'){
     const per = Math.floor(amount / DB.units.length);
     DB.units.forEach(u => shares[u.id] = per);
@@ -734,42 +691,30 @@ function addBill(){
     const totalPeople = DB.units.reduce((s,u)=>s+u.people, 0) || 1;
     DB.units.forEach(u => shares[u.id] = Math.round(amount * u.people / totalPeople));
   }
-
   DB.bills.push({ id: uid(), title, amount, split, source, shares, paidBy: {}, createdAt: Date.now() });
-
   document.getElementById('bTitle').value = '';
   document.getElementById('bAmount').value = '';
   document.getElementById('manualBox').innerHTML = '';
   document.getElementById('manualBox').style.display = 'none';
-
-  saveDB(); renderAll();
-  toast('قبض ثبت شد');
+  saveDB(); renderAll(); toast('قبض ثبت شد');
 }
 function deleteBill(id){
   if(!confirm('این قبض حذف شود؟')) return;
   DB.bills = DB.bills.filter(b => b.id !== id);
-  saveDB(); renderAll();
-  toast('حذف شد');
+  saveDB(); renderAll(); toast('حذف شد');
 }
 
-/* =========================================================
-   PAYMENTS
-========================================================= */
+/* ---------- PAYMENTS ---------- */
 function fillDateSelects(){
   const today = todayJalali();
   const ySel = document.getElementById('pYear');
   const mSel = document.getElementById('pMonth');
   const dSel = document.getElementById('pDay');
-
-  const years = [];
-  for(let y = today.jy - 3; y <= today.jy + 1; y++) years.push(y);
+  const years = []; for(let y = today.jy - 3; y <= today.jy + 1; y++) years.push(y);
   ySel.innerHTML = years.map(y => '<option value="' + y + '">' + faNum(y) + '</option>').join('');
   ySel.value = today.jy;
-
-  mSel.innerHTML = JALALI_MONTHS.map((m, i) =>
-    '<option value="' + (i+1) + '">' + m + '</option>').join('');
+  mSel.innerHTML = JALALI_MONTHS.map((m, i) => '<option value="' + (i+1) + '">' + m + '</option>').join('');
   mSel.value = today.jm;
-
   refreshDaySelect();
   dSel.value = Math.min(today.jd, dSel.options.length);
 }
@@ -787,7 +732,6 @@ function refreshDaySelect(){
   }
   dSel.value = Math.min(cur, len);
 }
-
 function addPayment(){
   const unitId = document.getElementById('pUnit').value;
   const amount = parseFloat(document.getElementById('pAmount').value);
@@ -795,88 +739,55 @@ function addPayment(){
   const y = parseInt(document.getElementById('pYear').value, 10);
   const m = parseInt(document.getElementById('pMonth').value, 10);
   const d = parseInt(document.getElementById('pDay').value, 10);
-
   if(!unitId) return toast('واحد را انتخاب کنید');
   if(!amount || amount <= 0) return toast('مبلغ معتبر نیست');
   if(!y || !m || !d) return toast('تاریخ معتبر نیست');
-
-  DB.payments.push({
-    id: uid(), unitId, amount, note: note || '',
-    jy: y, jm: m, jd: d,
-    createdAt: Date.now()
-  });
-
+  DB.payments.push({ id: uid(), unitId, amount, note: note || '', jy: y, jm: m, jd: d, createdAt: Date.now() });
   document.getElementById('pAmount').value = '';
   document.getElementById('pNote').value = '';
-
-  saveDB(); renderAll();
-  toast('پرداخت ثبت شد');
+  saveDB(); renderAll(); toast('پرداخت ثبت شد');
 }
 function deletePayment(id){
   if(!confirm('این پرداخت حذف شود؟')) return;
   DB.payments = DB.payments.filter(p => p.id !== id);
-  saveDB(); renderAll();
-  toast('حذف شد');
+  saveDB(); renderAll(); toast('حذف شد');
 }
 
-/* =========================================================
-   CALCULATIONS
-========================================================= */
+/* ---------- CALCULATIONS ---------- */
 function unitDebt(unitId){
   let debt = 0;
-  DB.bills.forEach(b => {
-    if(b.source === 'units' && b.shares[unitId] != null){
-      debt += b.shares[unitId];
-    }
-  });
-  DB.payments.forEach(p => {
-    if(p.unitId === unitId) debt -= p.amount;
-  });
+  DB.bills.forEach(b => { if(b.source === 'units' && b.shares[unitId] != null) debt += b.shares[unitId]; });
+  DB.payments.forEach(p => { if(p.unitId === unitId) debt -= p.amount; });
   return debt;
 }
-function totalDebt(){
-  return DB.units.reduce((s,u) => s + Math.max(0, unitDebt(u.id)), 0);
-}
+function totalDebt(){ return DB.units.reduce((s,u) => s + Math.max(0, unitDebt(u.id)), 0); }
 function fundBalance(){
   const paid = DB.payments.reduce((s,p)=>s+p.amount, 0);
   const fromFund = DB.bills.filter(b=>b.source==='fund').reduce((s,b)=>s+b.amount, 0);
   return paid - fromFund;
 }
-function totalBills(){
-  return DB.bills.reduce((s,b)=>s+b.amount, 0);
-}
+function totalBills(){ return DB.bills.reduce((s,b)=>s+b.amount, 0); }
 
-/* =========================================================
-   RENDER
-========================================================= */
+/* ---------- RENDER ---------- */
 function renderAll(){
-  renderDashboard();
-  renderUnits();
-  renderBills();
-  renderPayments();
-  renderReminders();
-  renderResidentLinks();
-  applySettings();
-  saveDB();
+  renderDashboard(); renderUnits(); renderBills(); renderPayments();
+  renderReminders(); renderResidentLinks(); applySettings(); saveDB();
 }
 function renderDashboard(){
   document.getElementById('stFund').textContent = fmt(fundBalance());
   document.getElementById('stDebt').textContent = fmt(totalDebt());
   document.getElementById('stUnits').textContent = faNum(DB.units.length);
   document.getElementById('stBills').textContent = fmt(totalBills());
-
   const ov = document.getElementById('unitOverview');
   if(DB.units.length === 0){
     ov.innerHTML = '<div class="empty"><div class="ico">🏢</div>هنوز واحدی اضافه نشده</div>';
   } else {
     ov.innerHTML = DB.units.map(u => {
       const d = unitDebt(u.id);
-      const cls = d > 0 ? 'debt' : 'paid';
-      return '<div class="unit-chip ' + cls + '">' + u.num +
+      return '<div class="unit-chip ' + (d>0?'debt':'paid') + '">' + u.num +
         '<span class="cnt">' + (d>0 ? fmt(d) + ' بدهی' : 'تسویه') + '</span></div>';
     }).join('');
   }
-
   const rb = document.getElementById('recentBills');
   const recent = [...DB.bills].sort((a,b)=>b.createdAt - a.createdAt).slice(0,5);
   if(recent.length === 0){
@@ -887,8 +798,7 @@ function renderDashboard(){
       '<div class="item-title">' + b.title + '</div>' +
       '<div class="item-sub"><span>' + fmt(b.amount) + ' تومان</span>' +
       '<span class="badge ' + (b.source==='fund'?'badge-blue':'badge-gray') + '">' +
-      (b.source==='fund'?'از صندوق':'از واحدها') + '</span></div></div></div>'
-    ).join('');
+      (b.source==='fund'?'از صندوق':'از واحدها') + '</span></div></div></div>').join('');
   }
 }
 function renderUnits(){
@@ -899,15 +809,13 @@ function renderUnits(){
     box.innerHTML = DB.units.map(u => {
       const d = unitDebt(u.id);
       return '<div class="item">' +
-        '<div class="item-main">' +
-        '<div class="item-title">واحد ' + u.num + '</div>' +
+        '<div class="item-main"><div class="item-title">واحد ' + u.num + '</div>' +
         '<div class="item-sub"><span>👥 ' + faNum(u.people) + ' نفر</span>' +
         (u.phone ? '<span dir="ltr">📱 ' + u.phone + '</span>' : '') +
         '<span class="badge ' + (d>0?'badge-red':'badge-green') + '">' +
         (d>0 ? fmt(d) + ' بدهی' : 'تسویه') + '</span></div></div>' +
         '<button class="btn btn-sm btn-soft" onclick="editUnit(\'' + u.id + '\')">✏️</button>' +
-        '<button class="btn btn-sm btn-danger" onclick="deleteUnit(\'' + u.id + '\')">🗑️</button>' +
-        '</div>';
+        '<button class="btn btn-sm btn-danger" onclick="deleteUnit(\'' + u.id + '\')">🗑️</button></div>';
     }).join('');
   }
   const pUnit = document.getElementById('pUnit');
@@ -919,53 +827,37 @@ function renderUnits(){
 }
 function renderBills(){
   const box = document.getElementById('billsList');
-  if(DB.bills.length === 0){
-    box.innerHTML = '<div class="empty"><div class="ico">📄</div>قبضی ثبت نشده</div>';
-    return;
-  }
+  if(DB.bills.length === 0){ box.innerHTML = '<div class="empty"><div class="ico">📄</div>قبضی ثبت نشده</div>'; return; }
   box.innerHTML = [...DB.bills].sort((a,b)=>b.createdAt-a.createdAt).map(b => {
-    const splitLabel = b.split==='per_unit'?'مساوی':b.split==='per_person'?'بر اساس نفرات':'دستی';
-    return '<div class="item">' +
-      '<div class="item-main">' +
+    const sl = b.split==='per_unit'?'مساوی':b.split==='per_person'?'بر اساس نفرات':'دستی';
+    return '<div class="item"><div class="item-main">' +
       '<div class="item-title">' + b.title + '</div>' +
-      '<div class="item-sub">' +
-      '<span>' + fmt(b.amount) + ' تومان</span>' +
-      '<span class="badge badge-blue">' + splitLabel + '</span>' +
+      '<div class="item-sub"><span>' + fmt(b.amount) + ' تومان</span>' +
+      '<span class="badge badge-blue">' + sl + '</span>' +
       '<span class="badge ' + (b.source==='fund'?'badge-blue':'badge-gray') + '">' +
       (b.source==='fund'?'از صندوق':'از واحدها') + '</span></div></div>' +
-      '<button class="btn btn-sm btn-danger" onclick="deleteBill(\'' + b.id + '\')">🗑️</button>' +
-      '</div>';
+      '<button class="btn btn-sm btn-danger" onclick="deleteBill(\'' + b.id + '\')">🗑️</button></div>';
   }).join('');
 }
 function renderPayments(){
   const box = document.getElementById('paymentsList');
-  if(DB.payments.length === 0){
-    box.innerHTML = '<div class="empty"><div class="ico">💰</div>پرداختی ثبت نشده</div>';
-    return;
-  }
+  if(DB.payments.length === 0){ box.innerHTML = '<div class="empty"><div class="ico">💰</div>پرداختی ثبت نشده</div>'; return; }
   box.innerHTML = [...DB.payments].sort((a,b)=>b.createdAt-a.createdAt).map(p => {
     const u = findUnit(p.unitId);
     const dateStr = (p.jy && p.jm && p.jd) ? formatJalali(p.jy, p.jm, p.jd) : '';
-    return '<div class="item">' +
-      '<div class="item-main">' +
+    return '<div class="item"><div class="item-main">' +
       '<div class="item-title">واحد ' + (u ? u.num : '؟') + '</div>' +
       '<div class="item-sub"><span>' + fmt(p.amount) + ' تومان</span>' +
       (dateStr ? '<span>📅 ' + dateStr + '</span>' : '') +
-      (p.note ? '<span>' + p.note + '</span>' : '') +
-      '</div></div>' +
-      '<button class="btn btn-sm btn-danger" onclick="deletePayment(\'' + p.id + '\')">🗑️</button>' +
-      '</div>';
+      (p.note ? '<span>' + p.note + '</span>' : '') + '</div></div>' +
+      '<button class="btn btn-sm btn-danger" onclick="deletePayment(\'' + p.id + '\')">🗑️</button></div>';
   }).join('');
 }
 
-/* ---------- Reminders (WhatsApp) ---------- */
 function buildReminderText(u, debt){
   const name = DB.settings.name || 'ساختمان';
   const card = DB.settings.card ? ('\n\n💳 شماره کارت مدیر:\n' + DB.settings.card) : '';
-  return 'سلام،\n' +
-    'یادآوری از طرف مدیریت ' + name + ':\n' +
-    'واحد ' + u.num + ' مبلغ ' + fmt(debt) + ' تومان بدهی شارژ دارد.\n' +
-    'لطفاً نسبت به تسویه اقدام فرمایید. با تشکر 🙏' + card;
+  return 'سلام،\nیادآوری از طرف مدیریت ' + name + ':\nواحد ' + u.num + ' مبلغ ' + fmt(debt) + ' تومان بدهی شارژ دارد.\nلطفاً نسبت به تسویه اقدام فرمایید. با تشکر 🙏' + card;
 }
 function whatsappLink(phone, text){
   const p = normalizePhone(phone);
@@ -975,175 +867,137 @@ function whatsappLink(phone, text){
 }
 function renderReminders(){
   const box = document.getElementById('remindersList');
-  const debtors = DB.units
-    .map(u => ({ u, debt: unitDebt(u.id) }))
-    .filter(x => x.debt > 0)
-    .sort((a,b) => b.debt - a.debt);
-
-  if(debtors.length === 0){
-    box.innerHTML = '<div class="empty"><div class="ico">✅</div>همه واحدها تسویه هستند</div>';
-    return;
-  }
+  const debtors = DB.units.map(u => ({ u, debt: unitDebt(u.id) }))
+    .filter(x => x.debt > 0).sort((a,b) => b.debt - a.debt);
+  if(debtors.length === 0){ box.innerHTML = '<div class="empty"><div class="ico">✅</div>همه واحدها تسویه هستند</div>'; return; }
   box.innerHTML = debtors.map(({u, debt}) => {
     const text = buildReminderText(u, debt);
     const link = whatsappLink(u.phone, text);
-    return '<div class="item">' +
-      '<div class="item-main">' +
+    const safeText = encodeURIComponent(JSON.stringify(text));
+    return '<div class="item"><div class="item-main">' +
       '<div class="item-title">واحد ' + u.num + '</div>' +
-      '<div class="item-sub">' +
-      '<span class="badge badge-red">' + fmt(debt) + ' بدهی</span>' +
+      '<div class="item-sub"><span class="badge badge-red">' + fmt(debt) + ' بدهی</span>' +
       (u.phone ? '<span dir="ltr">' + u.phone + '</span>' : '<span>بدون شماره</span>') +
       '</div></div>' +
       '<a class="btn btn-sm btn-wa" href="' + link + '" target="_blank" rel="noopener">واتساپ</a>' +
-      '<button class="btn btn-sm btn-soft" onclick="copyText(\'' + text.replace(/'/g,"\\'").replace(/\n/g,"\\n") + '\')">📋</button>' +
-      '</div>';
+      '<button class="btn btn-sm btn-soft" onclick="copyEncoded(\'' + safeText + '\')">📋</button></div>';
   }).join('');
 }
+function copyEncoded(enc){ try{ copyText(decodeURIComponent(enc)); }catch(e){ toast('خطا'); } }
+
 function renderResidentLinks(){
   const box = document.getElementById('residentLinks');
-  if(DB.units.length === 0){
-    box.innerHTML = '<div class="hint">ابتدا واحد اضافه کنید.</div>';
-    return;
-  }
+  if(DB.units.length === 0){ box.innerHTML = '<div class="empty"><div class="ico">🔗</div>ابتدا واحد اضافه کنید</div>'; return; }
   const base = location.origin + location.pathname;
   box.innerHTML = DB.units.map(u => {
     const link = base + '#/r/' + u.id;
-    return '<div class="item">' +
+    const safeLink = encodeURIComponent(JSON.stringify(link));
+    return '<div class="item" style="flex-direction:column;align-items:stretch;gap:10px">' +
+      '<div style="display:flex;align-items:center;gap:10px">' +
       '<div class="item-main"><div class="item-title">واحد ' + u.num + '</div>' +
-      '<div class="item-sub" style="direction:ltr;text-align:left;word-break:break-all">' + link + '</div></div>' +
-      '<button class="btn btn-sm btn-soft" onclick="copyText(\'' + link + '\')">📋</button>' +
+      '<div class="item-sub"><span>👥 ' + faNum(u.people) + ' نفر</span>' +
+      (u.phone ? '<span dir="ltr">📱 ' + u.phone + '</span>' : '') + '</div></div>' +
+      '<button class="btn btn-sm btn-primary" onclick="copyEncoded(\'' + safeLink + '\')">📋 کپی</button>' +
       '<button class="btn btn-sm btn-ghost" onclick="openResident(\'' + u.id + '\')">👁️</button>' +
-      '</div>';
+      '</div><div class="link-box">' + link + '</div></div>';
   }).join('');
 }
 
-/* =========================================================
-   RESIDENT
-========================================================= */
-function handleRoute(){
-  const m = (location.hash || '').match(/^#\/r\/(.+)$/);
-  if(m){
-    showResident(m[1]);
-  } else {
-    const old = document.getElementById('residentView');
-    if(old) old.remove();
-    document.getElementById('mainApp').style.display = 'block';
-    document.getElementById('appHeader').style.display = 'flex';
-    document.getElementById('fab').style.display = 'grid';
-  }
+/* ---------- RESIDENT ---------- */
+function openResident(unitId){
+  if(isResidentView) return;
+  history.pushState({ type: 'resident', unitId }, '', '#/r/' + unitId);
+  showResident(unitId);
 }
-function openResident(unitId){ location.hash = '#/r/' + unitId; }
 function showResident(unitId){
   const u = findUnit(unitId);
+  isResidentView = true;
   document.getElementById('mainApp').style.display = 'none';
   document.getElementById('appHeader').style.display = 'none';
   document.getElementById('fab').style.display = 'none';
   document.getElementById('drawer').classList.remove('open');
   document.getElementById('overlay').classList.remove('open');
-
-  const old = document.getElementById('residentView');
-  if(old) old.remove();
-
+  const old = document.getElementById('residentView'); if(old) old.remove();
   const wrap = document.createElement('div');
   wrap.id = 'residentView';
   wrap.className = 'resident-wrap';
-
   if(!u){
-    wrap.innerHTML = '<div class="resident-card"><h3>واحد یافت نشد</h3>' +
-      '<button class="btn btn-ghost btn-block" style="margin-top:16px" onclick="location.hash=\'\'">بازگشت</button></div>';
+    wrap.innerHTML = '<div class="back-bar"><button class="btn btn-ghost btn-sm" onclick="closeResident()">← بازگشت</button></div>' +
+      '<div class="resident-card"><h3>واحد یافت نشد</h3></div>';
     document.body.appendChild(wrap);
     return;
   }
-
   const debt = unitDebt(u.id);
   const card = DB.settings.card || '';
   const logoHtml = DB.settings.logo ? '<img src="' + DB.settings.logo + '">' : '🏢';
   const cardNum = card.replace(/\D/g,'');
-
   wrap.innerHTML =
+    '<div class="back-bar"><button class="btn btn-ghost btn-sm" onclick="closeResident()">← بازگشت</button></div>' +
     '<div class="resident-card">' +
       '<div class="resident-logo">' + logoHtml + '</div>' +
       '<div style="font-weight:700;font-size:1.1rem">' + (DB.settings.name||'ساختمان من') + '</div>' +
       '<div style="color:var(--muted);font-size:.85rem;margin-top:4px">واحد ' + u.num + '</div>' +
       '<div style="margin-top:18px;color:var(--muted);font-size:.85rem">بدهی شما</div>' +
       '<div class="resident-big" style="color:' + (debt>0?'var(--danger)':'var(--success)') + '">' +
-        (debt>0 ? fmt(debt) + ' تومان' : 'تسویه ✅') +
-      '</div>' +
+        (debt>0 ? fmt(debt) + ' تومان' : 'تسویه ✅') + '</div>' +
       (debt > 0 && card ?
-        '<div style="margin-top:16px">' +
-          '<div style="color:var(--muted);font-size:.8rem;margin-bottom:6px">شماره کارت مدیر برای واریز</div>' +
-          '<div class="card-num"><span class="num">' + card + '</span>' +
-          '<button class="copy-btn" onclick="copyText(\'' + cardNum + '\')">📋</button></div>' +
-        '</div>' : '') +
-      '<div style="margin-top:20px">' +
-        '<button class="btn btn-ghost btn-block" onclick="location.hash=\'\'">بازگشت</button>' +
-      '</div>' +
+        '<div style="margin-top:16px"><div style="color:var(--muted);font-size:.8rem;margin-bottom:6px">شماره کارت مدیر</div>' +
+        '<div class="card-num"><span class="num">' + card + '</span>' +
+        '<button class="copy-btn" onclick="copyText(\'' + cardNum + '\')">📋</button></div></div>' : '') +
     '</div>';
-
   document.body.appendChild(wrap);
 }
+function closeResident(){
+  // از history برمی‌گردیم عقب (به state قبلی)
+  history.back();
+}
+function exitResidentView(){
+  const old = document.getElementById('residentView'); if(old) old.remove();
+  document.getElementById('mainApp').style.display = 'block';
+  document.getElementById('appHeader').style.display = 'flex';
+  document.getElementById('fab').style.display = 'grid';
+}
 
-/* =========================================================
-   SETTINGS
-========================================================= */
+/* ---------- SETTINGS ---------- */
 function saveSetting(key, value){
-  DB.settings[key] = value;
-  saveDB(); applySettings();
+  DB.settings[key] = value; saveDB(); applySettings();
   if(key === 'name') toast('نام ذخیره شد');
 }
 function setTheme(t){ DB.settings.theme = t; saveDB(); applySettings(); }
 function uploadLogo(e){
-  const f = e.target.files[0];
-  if(!f) return;
+  const f = e.target.files[0]; if(!f) return;
   if(f.size > 500 * 1024) return toast('حجم لوگو باید کمتر از ۵۰۰KB باشد');
   const r = new FileReader();
-  r.onload = () => {
-    DB.settings.logo = r.result;
-    saveDB(); applySettings();
-    toast('لوگو ذخیره شد');
-  };
+  r.onload = () => { DB.settings.logo = r.result; saveDB(); applySettings(); toast('لوگو ذخیره شد'); };
   r.readAsDataURL(f);
 }
-function removeLogo(){
-  DB.settings.logo = '';
-  saveDB(); applySettings();
-  toast('لوگو حذف شد');
-}
+function removeLogo(){ DB.settings.logo = ''; saveDB(); applySettings(); toast('لوگو حذف شد'); }
 
-/* =========================================================
-   COPY
-========================================================= */
+/* ---------- COPY ---------- */
 function copyText(text){
   if(navigator.clipboard && window.isSecureContext){
     navigator.clipboard.writeText(text).then(()=>toast('کپی شد')).catch(()=>fallbackCopy(text));
-  } else {
-    fallbackCopy(text);
-  }
+  } else { fallbackCopy(text); }
 }
 function fallbackCopy(text){
   const ta = document.createElement('textarea');
   ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
   document.body.appendChild(ta); ta.select();
-  try{ document.execCommand('copy'); toast('کپی شد'); }
-  catch(e){ toast('کپی نشد'); }
+  try{ document.execCommand('copy'); toast('کپی شد'); } catch(e){ toast('کپی نشد'); }
   ta.remove();
 }
 
-/* =========================================================
-   IMPORT / EXPORT
-========================================================= */
+/* ---------- IMPORT / EXPORT ---------- */
 function exportData(){
   const blob = new Blob([JSON.stringify(DB, null, 2)], { type:'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'sakhteman-backup-' + Date.now() + '.json';
-  a.click();
-  URL.revokeObjectURL(a.href);
+  a.click(); URL.revokeObjectURL(a.href);
   toast('فایل ذخیره شد');
 }
 function importData(e){
-  const f = e.target.files[0];
-  if(!f) return;
+  const f = e.target.files[0]; if(!f) return;
   const r = new FileReader();
   r.onload = () => {
     try{
@@ -1153,8 +1007,7 @@ function importData(e){
       DB.bills = d.bills || [];
       DB.payments = d.payments || [];
       DB.settings = Object.assign(DB.settings, d.settings || {});
-      saveDB(); renderAll();
-      toast('داده‌ها وارد شد');
+      saveDB(); renderAll(); toast('داده‌ها وارد شد');
     }catch(err){ toast('فایل معتبر نیست'); }
   };
   r.readAsText(f);
@@ -1162,20 +1015,16 @@ function importData(e){
 }
 function clearAll(){
   DB = { units:[], bills:[], payments:[], settings: Object.assign({}, DB.settings) };
-  saveDB(); renderAll();
-  toast('همه داده‌ها پاک شد');
+  saveDB(); renderAll(); toast('همه داده‌ها پاک شد');
 }
 
-/* =========================================================
-   PDF
-========================================================= */
+/* ---------- PDF ---------- */
 async function exportPDF(){
   if(!window.jspdf) return toast('کتابخانه PDF بارگذاری نشده — اینترنت را چک کنید');
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
   const type = document.getElementById('rType').value;
   const font = 'Tahoma, Vazirmatn, sans-serif';
-
   function faCanvas(text, size, bold, color, align){
     const c = document.createElement('canvas');
     const scale = 4;
@@ -1202,27 +1051,19 @@ async function exportPDF(){
     doc.addImage(r.data, 'PNG', x, y, drawW, drawH);
     return drawH;
   }
-
-  // Header
   addFa('گزارش ' + (type==='debtors'?'بدهکاران':type==='fund'?'صندوق':type==='bills'?'قبض‌ها':'کامل'),
         16, true, '#1e40af', 10, 100, 90, 'center');
   addFa(DB.settings.name || 'ساختمان من', 11, false, '#64748b', 10, 10, 60);
   addFa('تاریخ: ' + new Date().toLocaleDateString('fa-IR'), 9, false, '#94a3b8', 22, 10, 60);
-
   let y = 35;
   function line(text, size, bold, color){
     if(y > 280){ doc.addPage(); y = 15; }
     const h = addFa(text, size||10, bold||false, color||'#0f172a', y, 20, 170);
     y += h + 1.5;
   }
-
   if(type === 'debtors' || type === 'full'){
-    line('— لیست بدهکاران —', 13, true, '#dc2626');
-    y += 1;
-    DB.units.forEach(u => {
-      const d = unitDebt(u.id);
-      if(d > 0) line('واحد ' + u.num + ' : ' + fmt(d) + ' تومان بدهی', 10, false, '#dc2626');
-    });
+    line('— لیست بدهکاران —', 13, true, '#dc2626'); y += 1;
+    DB.units.forEach(u => { const d = unitDebt(u.id); if(d > 0) line('واحد ' + u.num + ' : ' + fmt(d) + ' تومان بدهی', 10, false, '#dc2626'); });
     y += 3;
   }
   if(type === 'fund' || type === 'full'){
@@ -1234,44 +1075,46 @@ async function exportPDF(){
   }
   if(type === 'bills' || type === 'full'){
     line('— لیست قبض‌ها —', 13, true, '#0f172a');
-    DB.bills.forEach(b => {
-      line(b.title + ' : ' + fmt(b.amount) + ' تومان (' + (b.source==='fund'?'از صندوق':'از واحدها') + ')', 10);
-    });
+    DB.bills.forEach(b => line(b.title + ' : ' + fmt(b.amount) + ' تومان (' + (b.source==='fund'?'از صندوق':'از واحدها') + ')', 10));
     y += 3;
   }
   if(type === 'full'){
     line('— وضعیت همه واحدها —', 13, true, '#0f172a');
     DB.units.forEach(u => {
       const d = unitDebt(u.id);
-      line('واحد ' + u.num + ' (' + faNum(u.people) + ' نفر) : ' + (d>0 ? fmt(d)+' بدهی' : 'تسویه'),
-           10, false, d>0 ? '#dc2626' : '#16a34a');
+      line('واحد ' + u.num + ' (' + faNum(u.people) + ' نفر) : ' + (d>0 ? fmt(d)+' بدهی' : 'تسویه'), 10, false, d>0 ? '#dc2626' : '#16a34a');
     });
   }
-
   doc.save('report-' + type + '-' + Date.now() + '.pdf');
   toast('PDF دانلود شد');
 }
 
-/* =========================================================
-   BOOT
-========================================================= */
-window.addEventListener('hashchange', handleRoute);
+/* ---------- ROUTE (لینک مستقیم ساکن) ---------- */
+function handleInitialRoute(){
+  const m = (location.hash || '').match(/^#\/r\/(.+)$/);
+  if(m){
+    // کاربر ساکن است — pushState تا بتونه با back از اپ خارج بشه
+    history.replaceState({ type: 'resident', unitId: m[1] }, '', location.hash);
+    showResident(m[1]);
+  } else {
+    history.replaceState({ type: 'section', section: 'dashboard' }, '', location.pathname + location.search);
+    showSection('dashboard');
+  }
+}
 
+/* ---------- BOOT ---------- */
 function boot(){
   loadDB();
   fillDateSelects();
   document.getElementById('pYear').addEventListener('change', refreshDaySelect);
   document.getElementById('pMonth').addEventListener('change', refreshDaySelect);
-  handleRoute();
+  handleInitialRoute();
   if('serviceWorker' in navigator){
     navigator.serviceWorker.register('sw.js').catch(e => console.warn('SW:', e));
   }
 }
-if(document.readyState === 'loading'){
-  document.addEventListener('DOMContentLoaded', boot);
-} else {
-  boot();
-}
+if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+else boot();
 </script>
 </body>
 </html>
